@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActividadsTable extends Migration
+class CreateBalanceGeneralsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateActividadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('actividads', function (Blueprint $table) {
+        Schema::create('balance_generals', function (Blueprint $table) {
             $table->id();
-            $table->string('actividad');
-           
-
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateActividadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('actividads');
+        Schema::dropIfExists('balance_generals');
     }
 }

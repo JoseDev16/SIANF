@@ -62,8 +62,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('', [TipoCuentaController::class, 'destroy'])->name('tipocuenta.destroy');
 
     });
-
-
 });
 
 
