@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
 
 /*
@@ -52,6 +53,14 @@ Route::middleware(['auth'])->group(function () {
 
     //Rutas para logs
     Route::get('/logs', [ActividadController::class, 'index'])->name('logs.index')->middleware('permission:logs.index');
+
+    Route::prefix('Cuentas')->middleware('auth')->group(function() {
+        Route::get('', [CuentaController::class, 'index'])->name('cuenta.index');
+        Route::post('', [CuentaController::class, 'store'])->name('cuenta.store');
+        Route::get('/edit/{id}', [CuentaController::class, 'edit_view'])->name('cuenta.edit_view');
+        Route::post('/edit', [CuentaController::class, 'edit'])->name('cuenta.edit');
+        Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy');
+    });
 
     Route::prefix('TipoCuenta')->middleware('auth')->group(function () {
 
