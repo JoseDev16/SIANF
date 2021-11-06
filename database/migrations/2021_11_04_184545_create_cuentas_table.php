@@ -17,8 +17,8 @@ class CreateCuentasTable extends Migration
             $table->id();
             $table->string('codigo', 100);
             $table->string('nombre',100);
-            $table->unsignedBigInteger('empresa_id');            
-            $table->unsignedBigInteger('tipo_id');
+            $table->unsignedBigInteger('empresa_id')->nullable()->unique();
+            $table->unsignedBigInteger('tipo_id')->nullable()->unique();
             $table->integer('padre_id')->nullable();    //Relacion reflexiva de cuenta                        
             $table->timestamps();
             

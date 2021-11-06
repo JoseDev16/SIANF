@@ -54,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     //Rutas para logs
     Route::get('/logs', [ActividadController::class, 'index'])->name('logs.index')->middleware('permission:logs.index');
 
+
+    // Rutas para las cuentas con middleware de autentificacion agrupadas
     Route::prefix('Cuentas')->middleware('auth')->group(function() {
         Route::get('', [CuentaController::class, 'index'])->name('cuenta.index');
         Route::post('', [CuentaController::class, 'store'])->name('cuenta.store');

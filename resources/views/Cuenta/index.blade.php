@@ -27,12 +27,15 @@ tipo cuenta
 <table class="table">
     <thead class="thead-dark">
         <tr>            
+            <th scope="col">#</th>
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Acciones</th>
         </tr>
         @foreach ($cuentas as $cuenta )
         <tr>
-            <td>{{$loop->iteration}}</td>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $cuenta->codigo }}</td>
             <td> {{ $cuenta->nombre }} </td>
             <td style="display: flex">
                 <button type="button" title="Editar" data-toggle="modal" data-target="#editCuentaModal"

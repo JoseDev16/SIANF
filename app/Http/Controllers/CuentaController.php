@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Actividad;
 use App\Models\Cuenta;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,11 @@ class CuentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Agrega la cuenta
+        Cuenta::create($request->all());
+        $logs = new Actividad();
+        $logs->log($request->user,'crear el tipo cuenta: '.$request->nombre);
+        return back()->with('exito','La cuenta ha sido agregada exitosamente');
     }
 
     /**
