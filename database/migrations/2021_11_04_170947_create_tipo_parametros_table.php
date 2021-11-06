@@ -15,6 +15,7 @@ class CreateTipoParametrosTable extends Migration
     {
         Schema::create('tipo_parametros', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre',100);
             $table->timestamps();
         });
     }

@@ -15,6 +15,13 @@ class CreateBalanceGeneralsTable extends Migration
     {
         Schema::create('balance_generals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('periodo_id');
+            $table->double('activos')->default(0);
+            $table->double('pasivos')->default(0);            
+            $table->double('patrimonio')->default(0);
+            
+            
+            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');
             $table->timestamps();
         });
     }

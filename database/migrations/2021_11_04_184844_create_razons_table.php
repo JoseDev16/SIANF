@@ -15,6 +15,12 @@ class CreateRazonsTable extends Migration
     {
         Schema::create('razons', function (Blueprint $table) {
             $table->id();
+            $table->double('double')->nullable()->default(0);
+
+            $table->unsignedBigInteger('parametro_id');
+            $table->foreign('parametro_id')->references('id')->on('parametros')->onDelete('cascade');
+            $table->unsignedBigInteger('periodo_id');
+            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');
             $table->timestamps();
         });
     }

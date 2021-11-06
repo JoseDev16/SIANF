@@ -15,6 +15,11 @@ class CreateCuentaPeriodosTable extends Migration
     {
         Schema::create('cuenta_periodos', function (Blueprint $table) {
             $table->id();
+            $table->decimal('total')->default(0);
+            $table->unsignedBigInteger('cuenta_id');
+            $table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade');   
+            $table->unsignedBigInteger('periodo_id');
+            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');
             $table->timestamps();
         });
     }

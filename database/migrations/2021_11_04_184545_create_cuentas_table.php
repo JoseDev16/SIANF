@@ -15,8 +15,18 @@ class CreateCuentasTable extends Migration
     {
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo', 100);
+            $table->string('nombre',100);
+            $table->unsignedBigInteger('empresa_id');            
+            $table->unsignedBigInteger('tipo_id');
+            $table->integer('padre_id')->nullable();    //Relacion reflexiva de cuenta                        
             $table->timestamps();
+            
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('tipo_id')->references('id')->on('tipo_cuentas')->onUpdate('cascade')->onDelete('cascade');
+            
         });
+        
     }
 
     /**
