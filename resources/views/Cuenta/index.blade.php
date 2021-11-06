@@ -64,7 +64,10 @@ tipo cuenta
     <strong>¡Opps! Parece que no tienes ninguna tipo cuenta registrada.</strong>
 </div>
 @endif
-<script type="text/javascript">
+<script type="text/javascript">    
+    /* 
+      This function runs with the controller so we need to change what we need inside her fields
+    */
     function fun_edit(id)
     {
         var view_url = '{{ route("cuenta.edit_view", ":id") }}';
@@ -76,6 +79,7 @@ tipo cuenta
             success: function(result){
                 $("#edit_id").val(result.id);
                 $('#nombre').val(result.nombre);
+                $('#codigo').val(result.codigo);
             }
         });
     }

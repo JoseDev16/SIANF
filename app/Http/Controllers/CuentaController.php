@@ -51,20 +51,41 @@ class CuentaController extends Controller
      * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function show(Cuenta $cuenta)
-    {
-        //
-    }
 
+    /* 
+        This function works hand by hand with the blade so if we gonna need to add some 
+        parameters is better to put in the index blade 
+    */
+    public function edit_view(Request $request, $id)
+    {
+        if($request->ajax()){
+            $cuentas = Cuenta::find($id);
+            return response()->json($cuentas);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cuenta $cuenta)
+    public function edit(Request $request)
     {
-        //
+        //Edit cuentas
+        $id = $request->edit_id;
+        $tipoCuenta = Cuenta::find($id);
+
+        if (empty($id)) {
+            return back();
+        }
+
+        //Adding the parameters from the request
+        $tipoCuenta->nombre = $request->nombre;
+        $tipoCuenta->codigo = $request->codigo;
+        $tipoCuenta->save();
+        $logs = new Actividad();
+        $logs->log($request->user,'edito la tipoCuenta '.$request->nombre);
+        return back()->with('exito','La tipoCuenta ha sido actualizada exitosamente');
     }
 
     /**

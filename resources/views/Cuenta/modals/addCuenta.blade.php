@@ -14,18 +14,7 @@
             <div class="modal-body">
                 <form action="{{ route('cuenta.store') }}" method="POST" name="miForm">
                     @csrf
-                    <div class="form-group required">
-                        <label for="" class="control-label">Nombre cuenta: </label>
-                        <input maxlength="20" type="text" name="nombre"
-                            class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}"
-                            placeholder="Ingrese nombre de la cuenta" value="{{ old('nombre') }}" required
-                            autofocus>
-                        @if($errors->has('nombre'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('nombre') }}</strong>
-                        </span>
-                        @endif
-                    </div>
+                    {{-- Fields --}}
                     <div class="form-group required">
                       <label for="" class="control-label">Codigo cuenta: </label>
                       <input maxlength="20" type="text" name="codigo"
@@ -37,8 +26,20 @@
                           <strong>{{ $errors->first('codigo') }}</strong>
                       </span>
                       @endif
-                  </div>
-                  
+                    </div>
+                    <div class="form-group required">
+                        <label for="" class="control-label">Nombre cuenta: </label>
+                        <input maxlength="20" type="text" name="nombre"
+                            class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}"
+                            placeholder="Ingrese nombre de la cuenta" value="{{ old('nombre') }}" required
+                            autofocus>
+                        @if($errors->has('nombre'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('nombre') }}</strong>
+                        </span>
+                        @endif
+                    </div>                    
+                    {{-- End of fields --}}
                     <div class="modal-footer d-flex justify-content-center">
                         <input type="hidden" name="user" value="{{auth()->user()->name}}">
                         <button type="submit" class="btn btn-primary">
