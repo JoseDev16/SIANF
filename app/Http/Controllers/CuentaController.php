@@ -85,8 +85,13 @@ class CuentaController extends Controller
      * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cuenta $cuenta)
+    public function destroy(Request $request)
     {
-        //
+        // Elimina la cuenta
+        $tipoCuenta = Cuenta::find($request->delete_id);
+        $logs = new Actividad();
+        $logs->log($request->user,'elimino la tipoCuenta '.$tipoCuenta->nombre);
+        $tipoCuenta->delete();
+        return back()->with('exito','La tipoCuenta ha sido eliminada exitosamente');
     }
 }
