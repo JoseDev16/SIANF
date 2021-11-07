@@ -1,22 +1,22 @@
 <!-- Editar Modal -->
-<div class="modal fade" id="editTipoCuentaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle"
+<div class="modal fade" id="editSectorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color:#F2F2F2 !important;">
                 <h5 class="modal-title" id="exampleModalLongTitle">
                     <i class="fas fa-w fa-edit"></i>
-                    Editar tipo cuenta
+                    Editar sector
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tipocuenta.edit') }}" method="POST">
+                <form action="{{ route('sectores.edit') }}" method="POST">
                     @csrf
                     <div class="form-group required">
-                        <label for="" class="control-label">Nombre de tipo cuenta: </label>
+                        <label for="" class="control-label">Nombre del sector: </label>
                         <input maxlength="20" type="text" name="nombre" id="nombre"
                             class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" required
                             autofocus>

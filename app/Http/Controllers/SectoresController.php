@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sector;
+use App\Models\Actividad;
 use Illuminate\Http\Request;
 
 class SectoresController extends Controller
@@ -39,9 +40,9 @@ class SectoresController extends Controller
     {
         //
         Sector::create($request->all());
-        //$logs = new Sector();
-       // $logs->log($request->user,'crear el sector: '.$request->nombre);
-        return back()->with('exito','Sector ha sido agregado exitosamente');
+        $logs = new Actividad();
+        $logs->log($request->user,'crear el sector: '.$request->nombre);
+        return back()->with('exito','El Sector ha sido agregado exitosamente');
     }
 
     /**
@@ -61,9 +62,29 @@ class SectoresController extends Controller
      * @param  \App\Models\Sector  $sector
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sector $sector)
+
+    public function edit_view(Request $request, $id)
+    {
+        if($request->ajax()){
+            $sector = Sector::find($id);
+            return response()->json($sector);
+        }
+    }
+
+    public function edit(Request $request)
     {
         //
+        $id = $request->edit_id;
+        $tipoCuenta = Sector::find($id);
+
+        if (empty($id)) {
+            return back();
+        }
+        $tipoCuenta->nombre = $request->nombre;
+        $tipoCuenta->save();
+        $logs = new Actividad();
+        $logs->log($request->user,'edito el sector '.$request->nombre);
+        return back()->with('exito','El sector ha sido actualizado exitosamente');
     }
 
     /**
