@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
+use App\Http\Controllers\EmpresaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('', [TipoCuentaController::class, 'destroy'])->name('tipocuenta.destroy');
 
     });
+
+    Route::prefix('TipoEmpresa')->middleware('auth')->group(function (){
+
+        Route::get('',[EmpresaController::class, 'index'])->name('tipoempresa.index');
+        Route::post('',[EmpresaController::class, 'store'])->name('tipoempresa.store');
+
+    });
+
 });
 
 
