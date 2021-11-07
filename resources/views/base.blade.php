@@ -109,7 +109,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Catalogos de sistema:</h6>
                         <a class="collapse-item" href="{{route('tipocuenta.index')}}">Tipo cuenta</a>
-
+                        <a class="collapse-item" href="{{route('parametros.index')}}">Razones financieras</a>
 
 
                     </div>

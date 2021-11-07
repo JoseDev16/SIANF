@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
+use App\Http\Controllers\ParametrosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [TipoCuentaController::class, 'edit_view'])->name('tipocuenta.edit_view');
         Route::post('/edit', [TipoCuentaController::class, 'edit'])->name('tipocuenta.edit');
         Route::delete('', [TipoCuentaController::class, 'destroy'])->name('tipocuenta.destroy');
+
+    });
+
+    Route::prefix('RazonesFinancieras')->middleware('auth')->group(function () {
+
+        Route::get('', [ParametrosController::class, 'index'])->name('parametros.index');
+        Route::get('/edit/{id}', [ParametrosController::class, 'edit_view'])->name('parametros.edit_view');
+        Route::post('/edit', [ParametrosController::class, 'edit'])->name('parametros.edit');
 
     });
 });
