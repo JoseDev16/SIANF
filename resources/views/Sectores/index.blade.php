@@ -29,6 +29,7 @@ tipo cuenta
         <tr>            
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Acciones</th>
         </tr>
         @foreach ($sectores as $sector )
         <tr>

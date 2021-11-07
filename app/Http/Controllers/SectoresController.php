@@ -75,13 +75,13 @@ class SectoresController extends Controller
     {
         //
         $id = $request->edit_id;
-        $tipoCuenta = Sector::find($id);
+        $sector = Sector::find($id);
 
         if (empty($id)) {
             return back();
         }
-        $tipoCuenta->nombre = $request->nombre;
-        $tipoCuenta->save();
+        $sector->nombre = $request->nombre;
+        $sector->save();
         $logs = new Actividad();
         $logs->log($request->user,'edito el sector '.$request->nombre);
         return back()->with('exito','El sector ha sido actualizado exitosamente');
@@ -105,8 +105,13 @@ class SectoresController extends Controller
      * @param  \App\Models\Sector  $sector
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sector $sector)
+    public function destroy(Request $request)
     {
         //
+        $sector = Sector::find($request->delete_id);
+        $logs = new Actividad();
+        $logs->log($request->user,'elimino el sector '.$sector->nombre);
+        $sector->delete();
+        return back()->with('exito','El sector ha sido eliminado exitosamente');
     }
 }
