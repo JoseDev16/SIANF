@@ -78,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('',[EmpresaController::class, 'index'])->name('tipoempresa.index');
         Route::post('',[EmpresaController::class, 'store'])->name('tipoempresa.store');
-
+        Route::delete('', [EmpresaController::class, 'destroy'])->name('tipoempresa.destroy');
     });
 
     Route::prefix('Sectores')->middleware('auth')->group(function() {

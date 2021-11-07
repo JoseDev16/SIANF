@@ -43,19 +43,18 @@ tipo de empresas
         <tr>
             <td>{{$loop->iteration}}</td>
             <td> {{ $tipoEmpresa->nombre }} </td>
-            <td> {{ $tipoEmpresa->nombre }} </td>
             <td> {{ $tipoEmpresa->nit }} </td>
             <td> {{ $tipoEmpresa->nrc }} </td>
-            <!--<td style="display: flex">
-                <button type="button" title="Editar" data-toggle="modal" data-target="#editTipoEmpresaModal"
+            <td style="display: flex">
+                <!--<button type="button" title="Editar" data-toggle="modal" data-target="#editTipoEmpresaModal"
                     class="fas fa-w fa-edit"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
-                    onclick="fun_edit('{{$tipoEmpresa->id}}')"></button>
+                    onclick="fun_edit('{{$tipoEmpresa->id}}')"></button>-->
                 <button type="button" title="Eliminar" data-toggle="modal" data-target="#deleteModal"
                     class="fas fa-w fa-trash"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
                     onclick="fun_delete('{{$tipoEmpresa->id}}')"></button>
-            </td>-->
+            </td>
         </tr>
         @endforeach
     </thead>

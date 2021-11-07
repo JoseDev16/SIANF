@@ -145,6 +145,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Catalogo del sistema:</h6>
                         <a class="collapse-item" href="{{ route('tipoempresa.index') }}">Tipo de empresas</a>
+                    </div>
+                </div>
+            </li>
+            @endcan
+
             @can('user.index')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages67"

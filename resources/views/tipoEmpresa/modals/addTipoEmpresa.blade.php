@@ -54,14 +54,13 @@
                                 </span>
                              @endif
 
-                  <!--  <label for="" class="control-label">Sector: </label>
+                        <label for="" class="control-label">Sector: </label>
                         <select maxlength="20" type="text" name="sector"
                             class="form-control"
                             placeholder="Seleccione el sector" value="{{ old('sector_id') }}" required
                             autofocus>
-                            @foreach ($sectores as $sec)
-                                <option value="{{$sec->id}}"> {{$sec->id}} {{$sec->nombre}} </option>
-                            @endforeach -->
+                           
+                            
                         
                     </div>
 
@@ -85,8 +84,5 @@
 <!-- Fin Agregar  empresa Modal -->
 
 <script type="text/javascript">
-        function seleccionar(id)
-        {
-
-        }
+        
 </script>
