@@ -36,7 +36,7 @@ tipo de empresas
             <th scope="col">Acciones</th>
         </tr>
     
-         Botones de edit and delete
+         <!--Botones de edit and delete-->
         
         @foreach ($tipoEmpresas as $tipoEmpresa )
         
@@ -45,11 +45,13 @@ tipo de empresas
             <td> {{ $tipoEmpresa->nombre }} </td>
             <td> {{ $tipoEmpresa->nit }} </td>
             <td> {{ $tipoEmpresa->nrc }} </td>
+            <td> {{ $tipoEmpresa->sector_id }} </td>
             <td style="display: flex">
-                <!--<button type="button" title="Editar" data-toggle="modal" data-target="#editTipoEmpresaModal"
+                <button type="button" title="Editar" data-toggle="modal" data-target="#editTipoEmpresaModal"
                     class="fas fa-w fa-edit"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
-                    onclick="fun_edit('{{$tipoEmpresa->id}}')"></button>-->
+                    onclick="fun_edit('{{$tipoEmpresa->id}}')"></button>
+
                 <button type="button" title="Eliminar" data-toggle="modal" data-target="#deleteModal"
                     class="fas fa-w fa-trash"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
@@ -72,14 +74,14 @@ tipo de empresas
 <!--Mensaje-->
 @else
 <div class="alert alert-danger">
-    <strong>¡Opps! Parece que no tienes ninguna tipo de empresa registrada.</strong>
+    <strong>¡Opps! Parece que no tienes ningun tipo de empresa registrada.</strong>
 </div>
 @endif
 <script type="text/javascript">
     //EDITAR
     function fun_edit(id)
     {
-        var view_url = '{{ route("tipocuenta.edit_view", ":id") }}';
+        var view_url = '{{ route("tipoempresa.edit_view", ":id") }}';
         view_url = view_url.replace(':id', id);
         $.ajax({
             url: view_url,
@@ -88,6 +90,9 @@ tipo de empresas
             success: function(result){
                 $("#edit_id").val(result.id);
                 $('#nombre').val(result.nombre);
+                $('#nit').val(result.nit);
+                $('#nrc').val(result.nrc);
+                $('#sector_id').val(result.sector_id);
             }
         });
     }
@@ -102,6 +107,7 @@ tipo de empresas
         $('#nombre Empresa').val(''); //Limpiando el input
         $('#nit Empresa').val(''); //Limpiando el input
         $('#nrc Empresa').val('');
+        $('#sector_id Empresa').val('');
     }
 </script>
 @endsection

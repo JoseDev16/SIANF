@@ -29,6 +29,9 @@
                             </span>
                              @endif
 
+                    </div>
+
+                    <div class="form-group required">
                         <label for="" class="control-label">Nit de la empresa: </label>
                         <input maxlength="20" type="text" name="nit"
                             class="form-control{{ $errors->has('nit') ? ' is-invalid' : '' }}"
@@ -40,8 +43,9 @@
                                     <strong>{{ $errors->first('nit') }}</strong>
                                 </span>
                             @endif
+                    </div>
 
-
+                    <div class="form-group required">
                         <label for="" class="control-label">Nrc de la empresa: </label>
                         <input maxlength="20" type="text" name="nrc"
                             class="form-control{{ $errors->has('nrc') ? ' is-invalid' : '' }}"
@@ -53,36 +57,36 @@
                                      <strong>{{ $errors->first('nrc') }}</strong>
                                 </span>
                              @endif
-
+                    </div>
+                    <!--LISTA DE SECTORES-->
+                    <div class="form-group required">
                         <label for="" class="control-label">Sector: </label>
-                        <select maxlength="20" type="text" name="sector"
+                        <select maxlength="20" type="text" name="sector_id"
                             class="form-control"
-                            placeholder="Seleccione el sector" value="{{ old('sector_id') }}" required
+                            value="{{ old('sector_id') }}" required
                             autofocus>
-                           
-                            
+                            <option value="">Seleccione el sector </option>>
+                            @foreach ($sectores as $sec)
+                            <option value="{{$sec->id}}"> {{$sec->nombre}} </option>
+                            @endforeach
+                    </div>
                         
-                    </div>
-
-                    
-                    <div class="modal-footer d-flex justify-content-center">
-                        <input type="hidden" name="user" value="{{auth()->user()->name}}">
-                        <button type="submit" class="btn btn-primary">
-                            <i class='fas fa-check-circle'></i>
-                            Guardar
-                        </button>
-                        <a href="" class="btn btn-primary" data-dismiss="modal">
-                            <i class='fa fa-times'></i>
-                            Cancelar
-                        </a>
-                    </div>
+                        <div class="form-group required">   
+                            <div class="modal-footer d-flex justify-content-center">
+                                <input type="hidden" name="user" value="{{auth()->user()->name}}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class='fas fa-check-circle'></i>
+                                    Guardar
+                                </button>
+                                <a href="" class="btn btn-primary" data-dismiss="modal">
+                                    <i class='fa fa-times'></i>
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!-- Fin Agregar  empresa Modal -->
-
-<script type="text/javascript">
-        
-</script>

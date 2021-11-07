@@ -78,6 +78,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('',[EmpresaController::class, 'index'])->name('tipoempresa.index');
         Route::post('',[EmpresaController::class, 'store'])->name('tipoempresa.store');
+        Route::get('/edit/{id}', [EmpresaController::class, 'edit_view'])->name('tipoempresa.edit_view');
+        Route::post('/edit', [EmpresaController::class, 'edit'])->name('tipoempresa.edit');
         Route::delete('', [EmpresaController::class, 'destroy'])->name('tipoempresa.destroy');
     });
 
