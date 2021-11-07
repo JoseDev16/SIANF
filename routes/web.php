@@ -7,6 +7,7 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\SectoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,13 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
+    Route::prefix('Sectores')->middleware('auth')->group(function() {
+        Route::get('', [SectoresController::class, 'index'])->name('sectores.index');
+        Route::post('', [SectoresController::class, 'store'])->name('sectores.store');
+        Route::get('/edit/{id}', [SectoresController::class, 'edit_view'])->name('sectores.edit_view');
+        Route::post('/edit', [SectoresController::class, 'edit'])->name('sectores.edit');
+        Route::delete('', [SectoresController::class, 'destroy'])->name('sectores.destroy');
+    });
 });
 
 
