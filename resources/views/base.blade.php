@@ -135,6 +135,23 @@
             </li>
             @endcan
 
+            <!--Menu de tipo de empresas-->
+            @can('user.index')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages40"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-box"></i>
+                    <span>Empresas</span>
+                </a>
+                <div id="collapsePages40" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Catalogo del sistema:</h6>
+                        <a class="collapse-item" href="{{ route('tipoempresa.index') }}">Tipo de empresas</a>
+                    </div>
+                </div>
+            </li>
+            @endcan
+
             @can('user.index')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages67"
