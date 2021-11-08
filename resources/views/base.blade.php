@@ -108,8 +108,12 @@
                 <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Catalogos de sistema:</h6>
+                        @can('tipocuenta.index')
                         <a class="collapse-item" href="{{route('tipocuenta.index')}}">Tipo cuenta</a>
+                        @endcan
+                        @can('parametros.index')
                         <a class="collapse-item" href="{{route('parametros.index')}}">Razones financieras</a>
+                        @endcan
 
 
                     </div>
@@ -117,7 +121,7 @@
             </li>
             @endcan
 
-            @can('user.index')
+            @can('cuenta.index')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -135,8 +139,8 @@
             </li>
             @endcan
 
-            <!--Menu de tipo de empresas-->
-            @can('user.index')
+            <!--Menu de empresas-->
+            @can('empresa.index')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages40"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -146,13 +150,13 @@
                 <div id="collapsePages40" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Catalogo del sistema:</h6>
-                        <a class="collapse-item" href="{{ route('tipoempresa.index') }}">Tipo de empresas</a>
+                        <a class="collapse-item" href="{{ route('empresa.index') }}">Empresas</a>
                     </div>
                 </div>
             </li>
             @endcan
 
-            @can('user.index')
+            @can('sectores.index')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages67"
                     aria-expanded="true" aria-controls="collapsePages">

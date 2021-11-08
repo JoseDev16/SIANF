@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Cuentas;
+use App\Models\Cuenta;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class CuentasImport implements ToModel
@@ -14,10 +14,11 @@ class CuentasImport implements ToModel
     */
     public function model(array $row)
     {
-        return new Cuentas([
+        return new Cuenta([
             //
             'codigo' => $row[1],
-            'total' => $row[2],
+            'nombre' => $row[2],
+            'tipo_id' => $row[3],
         ]);
     }
 }

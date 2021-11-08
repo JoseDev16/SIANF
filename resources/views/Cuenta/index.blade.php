@@ -80,6 +80,7 @@ tipo cuenta
                 $("#edit_id").val(result.id);
                 $('#nombre').val(result.nombre);
                 $('#codigo').val(result.codigo);
+                $('#tipo_id').val(result.tipo_id);
             }
         });
     }

@@ -37,7 +37,20 @@
                     <strong>{{ $errors->first('nombre') }}</strong>
                   </span>
                   @endif
-              </div>      
+              </div>     
+              <div class="form-group required">
+                  <label for="" class="control-label">Tipo cuenta: </label>
+                  <select class="form-control{{ $errors->has('tipo_id') ? ' is-invalid' : '' }} form-select" aria-label="Default select example" id="tipo_id" name="tipo_id">
+                      @foreach ($tiposCuenta as $tipoCuenta )
+                      <option value="{{ $tipoCuenta->id }}">{{ $tipoCuenta->nombre }}</option>
+                      @endforeach
+                  </select>
+                  @if($errors->has('tipo_id'))
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('tipo_id') }}</strong>
+                  </span>
+                  @endif
+              </div> 
               {{-- End of fields --}}
               <input type="hidden" name="user" value="{{auth()->user()->name}}">
               <div class="modal-footer d-flex justify-content-center">

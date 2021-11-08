@@ -23,6 +23,18 @@ class PeriodoController extends Controller
         return \view('periodo.index',compact('periodos'));
     }
 
+    public function verEstados()
+    {
+        //
+        //$empresa_id = 1;
+        $idUsuario = Auth::id();
+        $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+
+        $periodos = Periodo::where('empresa_id', '=', $empresa->id)->orderBy('id','desc')->paginate(5);
+        //$tiposParametro = TipoParametros::orderBy('id','asc')->get();
+        return \view('estados.index',compact('periodos'));
+    }
+
     public function store(Request $request)
     {
         //Periodo::create($request->all());

@@ -110,13 +110,13 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('cuentas-excel', 'CuentaPeriodoController@store')->middleware(['auth:sanctum','verified'])->name('cuentas.store');
     Route::post('cuentas-excel', [CuentaPeriodoController::class, 'store'])->name('cuentas.store');
     
-    Route::prefix('TipoEmpresa')->middleware('auth')->group(function (){
+    Route::prefix('Empresa')->middleware('auth')->group(function (){
 
-        Route::get('',[EmpresaController::class, 'index'])->name('tipoempresa.index');
-        Route::post('',[EmpresaController::class, 'store'])->name('tipoempresa.store');
-        Route::get('/edit/{id}', [EmpresaController::class, 'edit_view'])->name('tipoempresa.edit_view');
-        Route::post('/edit', [EmpresaController::class, 'edit'])->name('tipoempresa.edit');
-        Route::delete('', [EmpresaController::class, 'destroy'])->name('tipoempresa.destroy');
+        Route::get('',[EmpresaController::class, 'index'])->name('empresa.index');
+        Route::post('',[EmpresaController::class, 'store'])->name('empresa.store');
+        Route::get('/edit/{id}', [EmpresaController::class, 'edit_view'])->name('empresa.edit_view');
+        Route::post('/edit', [EmpresaController::class, 'edit'])->name('empresa.edit');
+        Route::delete('', [EmpresaController::class, 'destroy'])->name('empresa.destroy');
     });
 
     Route::prefix('Sectores')->middleware('auth')->group(function() {
@@ -126,6 +126,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/edit', [SectoresController::class, 'edit'])->name('sectores.edit');
         Route::delete('', [SectoresController::class, 'destroy'])->name('sectores.destroy');
     });
+
+    Route::get('Estados', [PeriodoController::class, 'verEstados'])->middleware(['auth:sanctum','verified'])->name('estados.index');
+
 });
 
 

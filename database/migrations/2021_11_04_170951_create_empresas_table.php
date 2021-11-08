@@ -19,7 +19,7 @@ class CreateEmpresasTable extends Migration
             $table->string('nit',100);
             $table->string('nrc',100);
             $table->unsignedBigInteger('sector_id');            
-            $table->unsignedBigInteger('user_id');            
+            $table->unsignedBigInteger('user_id')->nullable();            
             $table->timestamps();
             
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');

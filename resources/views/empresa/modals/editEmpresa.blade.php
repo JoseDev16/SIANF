@@ -1,19 +1,19 @@
-<!-- Editar Modal Tipo de empresa-->
-<div class="modal fade" id="editTipoEmpresaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle"
+<!-- Editar Modal de empresa-->
+<div class="modal fade" id="editEmpresaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color:#F2F2F2 !important;">
                 <h5 class="modal-title" id="exampleModalLongTitle">
                     <i class="fas fa-w fa-edit"></i>
-                    Editar tipo de empresa
+                    Editar empresa
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tipoempresa.edit') }}" method="POST">
+                <form action="{{ route('empresa.edit') }}" method="POST">
                     @csrf
                     <div class="form-group required">
                         <label for="" class="control-label">Nombre de la empresa: </label>
@@ -81,4 +81,4 @@
         </div>
     </div>
 </div>
-<!-- Fin Editar Modal Tipo de empresa-->
+<!-- Fin Editar Modal empresa-->
