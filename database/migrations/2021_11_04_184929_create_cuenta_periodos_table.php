@@ -18,7 +18,7 @@ class CreateCuentaPeriodosTable extends Migration
             $table->decimal('total')->default(0);
             $table->unsignedBigInteger('cuenta_id');
             $table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade');   
-            $table->unsignedBigInteger('periodo_id');
+            $table->unsignedBigInteger('periodo_id')->nullable();
             $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');
             $table->timestamps();
         });

@@ -16,38 +16,31 @@ Registro de cuentas
 </div>
 @endif
 <!-- Fin Mensaje Exito -->
+<form action="{{ route('cuentas.store') }}" method="POST" enctype="multipart/form-data" name="miForm">
+    @csrf
+    <div class="mb-3">
+        <label for="" class="control-label">Periodo: </label>
+        <select class="form-control{{ $errors->has('periodo_id') ? ' is-invalid' : '' }} form-select" aria-label="Default select example" name="periodo_id">
+            @foreach ($periodos as $periodo )
+            <option value="{{ $periodo->id }}">{{ $periodo->year }}</option>
+            @endforeach
+        </select>
+        @if($errors->has('periodo_id'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('periodo_id') }}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Archivo Excel:</label>
+        <input class="form-control" type="file" name="file" id="formFile" require>
+    </div>
 
-
+    <button type="submit" class="btn btn-primary">Importar excel</button>
+</form>
 
 <script type="text/javascript">
-    function fun_edit(id)
-    {
-        var view_url = '{{ route("parametros.edit_view", ":id") }}';
-        view_url = view_url.replace(':id', id);
-        $.ajax({
-            url: view_url,
-            type:"GET",
-            data: {"id":id},
-            success: function(result){
-                $("#edit_id").val(result.id);
-                $('#parametro').val(result.parametro);
-                $('#valor').val(result.valor);
-                $('#tipo_id').val(result.tipo_id);
-                $('#mayor').val(result.mayor);
-                $('#menor').val(result.menor);
-                $('#entre').val(result.entre);
-            }
-        });
-    }
 
-    function fun_delete(id)
-    {
-        $("#delete_id").val(id);
-    }
-    //Limpiar los campos de la modal de traslados
-    function limpiarCampos(){
-        $('#nombre cuenta').val(''); //Limpiando el input
-    }
 
 </script>
 @endsection

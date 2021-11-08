@@ -88,11 +88,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('CuentasPeriodo')->middleware('auth')->group(function () {
 
-        Route::get('', [CuentaPeriodo::class, 'index'])->name('cuentaperiodo.index');
-        Route::post('', [CuentaPeriodo::class, 'store'])->name('cuentaperiodo.store');
-        Route::get('/edit/{id}', [CuentaPeriodo::class, 'edit_view'])->name('cuentaperiodo.edit_view');
-        Route::post('/edit', [CuentaPeriodo::class, 'edit'])->name('cuentaperiodo.edit');
-        Route::delete('', [CuentaPeriodo::class, 'destroy'])->name('cuentaperiodo.destroy');
+        Route::get('', [CuentaPeriodoController::class, 'index'])->name('cuentaperiodo.index');
+        Route::post('', [CuentaPeriodoController::class, 'store'])->name('cuentaperiodo.store');
+        Route::get('/edit/{id}', [CuentaPeriodoController::class, 'edit_view'])->name('cuentaperiodo.edit_view');
+        Route::post('/edit', [CuentaPeriodoController::class, 'edit'])->name('cuentaperiodo.edit');
+        Route::delete('', [CuentaPeriodoController::class, 'destroy'])->name('cuentaperiodo.destroy');
 
     });
 
@@ -105,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('', [PeriodoController::class, 'destroy'])->name('periodo.destroy');
 
     });
+
+    //Route::get('cuentas-excel', 'CuentaPeriodoController@store')->middleware(['auth:sanctum','verified'])->name('cuentas.store');
+    Route::post('cuentas-excel', [CuentaPeriodoController::class, 'store'])->name('cuentas.store');
 });
 
 
