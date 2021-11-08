@@ -17,7 +17,7 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('dist/bootstrap-duallistbox.css')}}">
@@ -109,9 +109,27 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Catalogos de sistema:</h6>
                         <a class="collapse-item" href="{{route('tipocuenta.index')}}">Tipo cuenta</a>
+                        <a class="collapse-item" href="{{route('parametros.index')}}">Razones financieras</a>
 
 
+                    </div>
+                </div>
+            </li>
+            @endcan
 
+            @can('user.index')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-box"></i>
+                    <span>Cuentas</span>
+                </a>
+                <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Cuentas</h6>
+                        <a class="collapse-item" href="{{ route('cuenta.index') }}">Cuentas</a>
+                        <a class="collapse-item" href="{{ route('periodo.index') }}">Gestionar periodos</a>
+                        <a class="collapse-item" href="{{ route('cuentaperiodo.index') }}">Subir datos de cuentas</a>
                     </div>
                 </div>
             </li>
