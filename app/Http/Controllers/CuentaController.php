@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Actividad;
 use App\Models\Cuenta;
+use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
 
 class CuentaController extends Controller
@@ -17,7 +18,8 @@ class CuentaController extends Controller
     {
         //Index of Cuenta
         $cuentas = Cuenta::orderBy('id','desc')->paginate(5);
-        return \view('cuenta.index',compact('cuentas'));
+        $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
+        return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
     }
 
     /**
@@ -82,6 +84,7 @@ class CuentaController extends Controller
         //Adding the parameters from the request
         $tipoCuenta->nombre = $request->nombre;
         $tipoCuenta->codigo = $request->codigo;
+        $tipoCuenta->tipo_id = $request->tipo_id;
         $tipoCuenta->save();
         $logs = new Actividad();
         $logs->log($request->user,'edito la tipoCuenta '.$request->nombre);

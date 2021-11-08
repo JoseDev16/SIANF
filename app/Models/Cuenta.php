@@ -13,6 +13,7 @@ class Cuenta extends Model
     protected $fillable = [
         'nombre',
         'codigo',
+        'tipo_id',
     ];
     
     //Relacion uno a uno con TipoCuenta

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Empresa;
 use App\Models\Sector;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
 {
@@ -15,44 +17,52 @@ class EmpresaController extends Controller
     public function index()
     {
 
-        $tipoEmpresas = Empresa::orderBy('id','desc')->paginate(5);
+        $empresas = Empresa::orderBy('id','desc')->paginate(5);
         $sectores = Sector::orderBy('id','desc')->paginate(5);
-        return \view('tipoEmpresa.index',compact('tipoEmpresas','sectores'));
+        return \view('empresa.index',compact('empresas','sectores'));
     }
 
     public function store(Request $request)
     {
-        Empresa::create($request->all());
+        $empresa = Empresa::create($request->all());
         $logs = new Actividad();
-        $logs->log($request->user,'crear el tipo de empresa: '.$request->nombre);
+        $logs->log($request->user,'crear la empresa: '.$request->nombre);
 
-        return back()->with('exito','El tipo de Empresa ha sido agregado exitosamente');
+        $user = User::create([  'name' => $request->nombre,
+                            'email' => $request->nombre.'@gmail.com',
+                            'username' => $request->nombre,
+                            'password' => Hash::make('empresa')]);
+        $user->assignRole('empresa');
+        $empresa->user_id = $user->id;
+        $empresa->save();
+
+        return back()->with('exito','La Empresa ha sido agregado exitosamente');
     }
 
     public function edit_view(Request $request, $id)
     {
         if($request->ajax()){
-            $tipoEmpresas = Empresa::find($id);
-            return response()->json($tipoEmpresas);
+            $empresas = Empresa::find($id);
+            return response()->json($empresas);
         }
     }
 
     public function edit(Request $request)
     {
         $id = $request->edit_id;
-        $tipoEmpresas = Empresa::find($id);
+        $empresas = Empresa::find($id);
 
         if (empty($id)) {
             return back();
         }
-        $tipoEmpresas->nombre = $request->nombre;
-        $tipoEmpresas->nit = $request->nit;
-        $tipoEmpresas->nrc = $request->nrc;
-        $tipoEmpresas->sector_id = $request->sector_id;
+        $empresas->nombre = $request->nombre;
+        $empresas->nit = $request->nit;
+        $empresas->nrc = $request->nrc;
+        $empresas->sector_id = $request->sector_id;
 
-        $tipoEmpresas->save();
+        $empresas->save();
         $logs = new Actividad();
-        $logs->log($request->user,'edito el tipo de empresa '.$request->nombre);
+        $logs->log($request->user,'edito la empresa '.$request->nombre);
         return back()->with('exito','La empresa ha sido actualizada exitosamente');
     }
 

@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body align-self-center">
-                <form action="{{ route('tipoempresa.destroy') }}" method="POST">
+                <form action="{{ route('empresa.destroy') }}" method="POST">
                     @csrf
                     {{ method_field('DELETE') }}
                     <div style="text-align: center">
@@ -13,7 +13,7 @@
                         <br>
                         <br>
                         <strong>
-                            <h3>¿Estás seguro que deseas eliminar el tipo de empresa?</h3>
+                            <h3>¿Estás seguro que deseas eliminar la empresa?</h3>
                         </strong>
                         <strong>Recuerda que NO podrás revertir esta acción</strong>
                         <input type="hidden" id="delete_id" name="delete_id">

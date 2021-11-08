@@ -16,7 +16,7 @@ class CuentaPeriodoImport implements ToModel
     {
         return new CuentaPeriodo([
             'cuenta_id' => $row[0],
-            'total' => $row[3],
+            'total' => $row[4],
         ]);
     }
 }

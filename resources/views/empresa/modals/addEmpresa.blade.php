@@ -6,7 +6,7 @@
             <div class="modal-header" style="background-color:#F2F2F2 !important;">
                 <h5 class="modal-title" id="exampleModalLongTitle">
                     <i class="fas fw fa-plus-circle"></i>
-                    Agregar tipo de empresa
+                    Agregar empresa
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -14,13 +14,13 @@
             </div>
             <div class="modal-body">
                 <!-- lo que va en controller --BORRAR LUEGO ESTO-->
-                <form action="{{ route('tipoempresa.store') }}" method="POST" name="miForm">
+                <form action="{{ route('empresa.store') }}" method="POST" name="miForm">
                     @csrf
                     <div class="form-group required">
                         <label for="" class="control-label">Nombre de la empresa: </label>
                         <input maxlength="20" type="text" name="nombre"
                             class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}"
-                            placeholder="Ingrese nombre de tipo de la empresa" value="{{ old('nombre') }}" required
+                            placeholder="Ingrese nombre de la empresa" value="{{ old('nombre') }}" required
                             autofocus>
 
                             @if($errors->has('nombre'))

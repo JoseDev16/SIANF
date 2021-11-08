@@ -7,6 +7,7 @@ use App\Models\Periodo;
 use App\Models\Empresa;
 use App\Models\EstadoResultado;
 use App\Models\BalanceGeneral;
+use App\Models\Cuenta;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CuentaPeriodoImport;
@@ -56,10 +57,23 @@ class CuentaPeriodoController extends Controller
         $idUsuario = Auth::id();
         $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
 
-        //validando para evitar que se registre dos veces el mismo periodo
-        $validacion = DB::table('cuenta_periodos')->where('periodo_id', '=', $request->periodo_id)->get();
-        if(count($validacion) == 0){
+        //verificando si exiten cuentas, sino, las crea
+        $cuentas = DB::table('cuentas')->where('empresa_id', '=', $empresa->id)->get();
+        if(count($cuentas) == 0){
             $file = $request->file('file');
+            Excel::import(new CuentasImport, $file);
+
+            $cuentasEmpresa = DB::table('cuentas')->whereNull('empresa_id')->get();
+            foreach($cuentasEmpresa as $cuentaEmpresa){
+                $cuenta = Cuenta::find($cuentaEmpresa->id);
+                $cuenta->empresa_id = $empresa->id;
+                $cuenta->save();
+            }
+        }
+
+        //validando para evitar que se registre dos veces el mismo periodo
+        $periodos = DB::table('cuenta_periodos')->where('periodo_id', '=', $request->periodo_id)->get();
+        if(count($periodos) == 0){
             Excel::import(new CuentaPeriodoImport, $file);
 
             $cuentasPeriodo = DB::table('cuenta_periodos')->whereNull('periodo_id')->get();
@@ -69,6 +83,7 @@ class CuentaPeriodoController extends Controller
                 $cuenta->save();
             }
 
+            // Llenado de tablas de estados de resultados y balance general
             $estadoResultados = new EstadoResultado();
             $balanceGeneral = new BalanceGeneral();
             $estadoResultados->periodo_id = $request->periodo_id;
@@ -185,7 +200,6 @@ class CuentaPeriodoController extends Controller
             return back()->with('exito', 'Ya se realizó la importación previamente');
         }
 
-        
     }
 
     /**

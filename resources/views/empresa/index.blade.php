@@ -1,16 +1,16 @@
 @extends('base')
 @section('titulo')
-tipo de empresas
+Empresas
 @endsection
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Listado de tipo de empresas</li>
+        <li class="breadcrumb-item active" aria-current="page">Listado de Empresas</li>
     </ol>
 </nav>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <button type="button" class="btn btn-primary" onclick="limpiarCampos()" data-toggle="modal" data-target="#addModal">
-        Agregar tipo de empresa
+        Agregar empresa
     </button>
 </div>
 <!-- Mensaje de Exito -->
@@ -20,10 +20,10 @@ tipo de empresas
     {{ session('exito') }}
 </div>
 @endif
-@include('tipoEmpresa.modals.addTipoEmpresa')
+@include('empresa.modals.addEmpresa')
 <!-- Fin Mensaje Exito -->
 
-@if(count($tipoEmpresas) > 0)
+@if(count($empresas) > 0)
 <!-- Table a mostrarse cuando se crea la empresa -->
 <table class="table">
     <thead class="thead-dark">
@@ -38,24 +38,24 @@ tipo de empresas
     
          <!--Botones de edit and delete-->
         
-        @foreach ($tipoEmpresas as $tipoEmpresa )
+        @foreach ($empresas as $empresa )
         
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td> {{ $tipoEmpresa->nombre }} </td>
-            <td> {{ $tipoEmpresa->nit }} </td>
-            <td> {{ $tipoEmpresa->nrc }} </td>
-            <td> {{ $tipoEmpresa->sector_id }} </td>
+            <td> {{ $empresa->nombre }} </td>
+            <td> {{ $empresa->nit }} </td>
+            <td> {{ $empresa->nrc }} </td>
+            <td> {{ $empresa->sector_id }} </td>
             <td style="display: flex">
-                <button type="button" title="Editar" data-toggle="modal" data-target="#editTipoEmpresaModal"
+                <button type="button" title="Editar" data-toggle="modal" data-target="#editEmpresaModal"
                     class="fas fa-w fa-edit"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
-                    onclick="fun_edit('{{$tipoEmpresa->id}}')"></button>
+                    onclick="fun_edit('{{$empresa->id}}')"></button>
 
                 <button type="button" title="Eliminar" data-toggle="modal" data-target="#deleteModal"
                     class="fas fa-w fa-trash"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
-                    onclick="fun_delete('{{$tipoEmpresa->id}}')"></button>
+                    onclick="fun_delete('{{$empresa->id}}')"></button>
             </td>
         </tr>
         @endforeach
@@ -65,23 +65,23 @@ tipo de empresas
 
 <!-- Paginacion de tabla -->
 <div class="d-flex justify-content-center">
-    {{ $tipoEmpresas->links() }}
+    {{ $empresas->links() }}
 </div>
 <!-- Fin Paginacion de tabla-->
-@include('tipoEmpresa.modals.editTipoEmpresa')
-@include('tipoEmpresa.modals.deleteTipoEmpresa')
+@include('empresa.modals.editEmpresa')
+@include('empresa.modals.deleteEmpresa')
 
 <!--Mensaje-->
 @else
 <div class="alert alert-danger">
-    <strong>¡Opps! Parece que no tienes ningun tipo de empresa registrada.</strong>
+    <strong>¡Opps! Parece que no tienes ninguna empresa registrada.</strong>
 </div>
 @endif
 <script type="text/javascript">
     //EDITAR
     function fun_edit(id)
     {
-        var view_url = '{{ route("tipoempresa.edit_view", ":id") }}';
+        var view_url = '{{ route("empresa.edit_view", ":id") }}';
         view_url = view_url.replace(':id', id);
         $.ajax({
             url: view_url,
