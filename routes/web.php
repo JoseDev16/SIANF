@@ -7,6 +7,9 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\ParametrosController;
+use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\CuentaPeriodoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +83,26 @@ Route::middleware(['auth'])->group(function () {
         Route::get('', [ParametrosController::class, 'index'])->name('parametros.index');
         Route::get('/edit/{id}', [ParametrosController::class, 'edit_view'])->name('parametros.edit_view');
         Route::post('/edit', [ParametrosController::class, 'edit'])->name('parametros.edit');
+
+    });
+
+    Route::prefix('CuentasPeriodo')->middleware('auth')->group(function () {
+
+        Route::get('', [CuentaPeriodo::class, 'index'])->name('cuentaperiodo.index');
+        Route::post('', [CuentaPeriodo::class, 'store'])->name('cuentaperiodo.store');
+        Route::get('/edit/{id}', [CuentaPeriodo::class, 'edit_view'])->name('cuentaperiodo.edit_view');
+        Route::post('/edit', [CuentaPeriodo::class, 'edit'])->name('cuentaperiodo.edit');
+        Route::delete('', [CuentaPeriodo::class, 'destroy'])->name('cuentaperiodo.destroy');
+
+    });
+
+    Route::prefix('Periodo')->middleware('auth')->group(function () {
+
+        Route::get('', [PeriodoController::class, 'index'])->name('periodo.index');
+        Route::post('', [PeriodoController::class, 'store'])->name('periodo.store');
+        Route::get('/edit/{id}', [PeriodoController::class, 'edit_view'])->name('periodo.edit_view');
+        Route::post('/edit', [PeriodoController::class, 'edit'])->name('periodo.edit');
+        Route::delete('', [PeriodoController::class, 'destroy'])->name('periodo.destroy');
 
     });
 });
