@@ -48,7 +48,6 @@ Razones financieras
 </div>
 <!-- Fin Paginacion de tabla-->
 @include('parametros.modals.editParametro')
-@include('parametros.modals.deleteParametro')
 @else
 <div class="alert alert-danger">
     <strong>¡Opps! Parece que no tienes ninguna tipo cuenta registrada.</strong>
