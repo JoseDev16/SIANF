@@ -9,7 +9,7 @@ use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\ParametrosController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\CuentaPeriodoController;
-
+use App\Http\Controllers\SectoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +108,13 @@ Route::middleware(['auth'])->group(function () {
 
     //Route::get('cuentas-excel', 'CuentaPeriodoController@store')->middleware(['auth:sanctum','verified'])->name('cuentas.store');
     Route::post('cuentas-excel', [CuentaPeriodoController::class, 'store'])->name('cuentas.store');
+    Route::prefix('Sectores')->middleware('auth')->group(function() {
+        Route::get('', [SectoresController::class, 'index'])->name('sectores.index');
+        Route::post('', [SectoresController::class, 'store'])->name('sectores.store');
+        Route::get('/edit/{id}', [SectoresController::class, 'edit_view'])->name('sectores.edit_view');
+        Route::post('/edit', [SectoresController::class, 'edit'])->name('sectores.edit');
+        Route::delete('', [SectoresController::class, 'destroy'])->name('sectores.destroy');
+    });
 });
 
 

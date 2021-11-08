@@ -135,6 +135,22 @@
             </li>
             @endcan
 
+            @can('user.index')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages67"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Sectores</span>
+                </a>
+                <div id="collapsePages67" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Sectores</h6>
+                        <a class="collapse-item" href="{{ route('sectores.index') }}">Sectores</a>
+                    </div>
+                </div>
+            </li>
+            @endcan
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
