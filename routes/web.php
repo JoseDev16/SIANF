@@ -13,6 +13,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\SectoresController;
 use App\Http\Controllers\GraficoCuenta;
 use App\Http\Controllers\GraficoCuentaController;
+use App\Http\Controllers\GraficoRatioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,6 +134,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('GraficoCuenta')->middleware('auth')->group(function() {
         Route::get('', [GraficoCuentaController::class, 'index'])->name('GraficoCuenta.index');
+    });
+
+    //Ruta de grafico de ratio
+    Route::prefix('GraficoRatio')->middleware('auth')->group(function() {
+        Route::get('', [GraficoRatioController::class, 'index'])->name('GraficoRatio.index');
     });
 
 });

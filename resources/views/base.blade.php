@@ -182,7 +182,7 @@
                 <div id="collapsePages80" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gráficos del Sistema</h6>
-                        <a class="collapse-item" href="">Gráficos de Ratios</a>
+                        <a class="collapse-item" href="{{ route('GraficoRatio.index') }}">Gráficos de Ratios</a>
                         <a class="collapse-item" href="{{ route('GraficoCuenta.index') }}">Gráficos de Cuentas</a>
                     </div>
                 </div>

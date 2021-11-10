@@ -12,11 +12,9 @@ class GraficoCuentaController extends Controller
     //
     public function index()
     {
-        //Index of Cuenta
+        //Muestra grafico de Cuenta
         $GraficosCuenta = Cuenta::orderBy('id','desc')->paginate(5);
         return \view('GraficoCuenta.index',compact('GraficosCuenta'));
-        //$cuentas = Cuenta::orderBy('id','desc')->paginate(5);
-        //$tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
-        //return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+        
     }
 }
