@@ -16,6 +16,7 @@ class CreatePromedioRatiosTable extends Migration
         Schema::create('promedio_ratios', function (Blueprint $table) {
             $table->id();
             $table->string('valor_promedio',100);
+            $table->integer('year')->default(0);
             $table->unsignedBigInteger('parametro_id');            
             $table->unsignedBigInteger('sector_id');            
             $table->timestamps();
