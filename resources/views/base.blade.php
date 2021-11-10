@@ -131,9 +131,28 @@
                 <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Cuentas</h6>
-                        <a class="collapse-item" href="{{ route('cuenta.index') }}">Cuentas</a>
+                        <a class="collapse-item" href="{{ route('cuenta.index') }}">Gestionar Cuentas</a>
                         <a class="collapse-item" href="{{ route('periodo.index') }}">Gestionar periodos</a>
-                        <a class="collapse-item" href="{{ route('cuentaperiodo.index') }}">Subir datos de cuentas</a>
+                        <a class="collapse-item" href="{{ route('cuentaperiodo.index') }}">Subir Estados Financieros</a>
+                        <a class="collapse-item" href="{{ route('estados.index') }}">Ver Estados financieros</a>
+                    </div>
+                </div>
+            </li>
+            @endcan
+
+            @can('cuenta.index')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-box"></i>
+                    <span>Ratios de Empresa</span>
+                </a>
+                <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Razones financieras</h6>
+                        <a class="collapse-item" href="{{ route('razon.index') }}">Calcular ratios</a>
+                        <a class="collapse-item" href="{{ route('verratios.index') }}">Ver ratios</a>
+                        <a class="collapse-item" href="{{ route('verpromedio.index') }}">Ver promedio empresarial</a>
                     </div>
                 </div>
             </li>

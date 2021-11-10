@@ -29,7 +29,7 @@ class CuentaPeriodoController extends Controller
         $idUsuario = Auth::id();
         $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
 
-        $periodos = Periodo::where('empresa_id', '=', $empresa->id)->orderBy('id','asc')->get();
+        $periodos = Periodo::where('empresa_id', '=', $empresa->id)->orderBy('id','desc')->get();
 
         return \view('cuentaperiodo.index',compact('periodos'));
     }
@@ -56,11 +56,11 @@ class CuentaPeriodoController extends Controller
         //
         $idUsuario = Auth::id();
         $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
-
+        $file = $request->file('file');
+        
         //verificando si exiten cuentas, sino, las crea
         $cuentas = DB::table('cuentas')->where('empresa_id', '=', $empresa->id)->get();
         if(count($cuentas) == 0){
-            $file = $request->file('file');
             Excel::import(new CuentasImport, $file);
 
             $cuentasEmpresa = DB::table('cuentas')->whereNull('empresa_id')->get();

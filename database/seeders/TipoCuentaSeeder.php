@@ -18,8 +18,12 @@ class TipoCuentaSeeder extends Seeder
     {
         // Razones financieras
         $tipos = [
-            ["Balance general"],
-            ["Estado de resultados"],
+            ["Activos"],
+            ["Pasivos"],
+            ["Patrimonio"],
+            ["Ingresos"],
+            ["Gastos"],
+            ["Utilidades"],
         ];
 
         foreach($tipos as $tipo){

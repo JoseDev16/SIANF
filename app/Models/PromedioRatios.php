@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PromedioRatios extends Model
 {
     use HasFactory;
+
+    protected $table = 'promedio_ratios';
+    protected $fillable = [
+        'parametro_id','sector_id','valor_promedio'
+    ];
 }
