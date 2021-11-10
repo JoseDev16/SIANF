@@ -11,6 +11,8 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\CuentaPeriodoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\SectoresController;
+use App\Http\Controllers\GraficoCuenta;
+use App\Http\Controllers\GraficoCuentaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,6 +130,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('Estados', [PeriodoController::class, 'verEstados'])->middleware(['auth:sanctum','verified'])->name('estados.index');
+
+    Route::prefix('GraficoCuenta')->middleware('auth')->group(function() {
+        Route::get('', [GraficoCuentaController::class, 'index'])->name('GraficoCuenta.index');
+    });
 
 });
 
