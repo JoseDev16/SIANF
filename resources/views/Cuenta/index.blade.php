@@ -12,6 +12,13 @@ tipo cuenta
     <button type="button" class="btn btn-primary" onclick="limpiarCampos()" data-toggle="modal" data-target="#addModal">
         Agregar cuenta
     </button>
+    
+    <a href="{{ route('tipocuenta.index')}}">
+        <button type="button" class="btn btn-primary">
+            Agregar tipo de cuenta
+        </button>
+    </a> 
+    
 </div>
 <!-- Mensaje Exito -->
 @if(session('exito'))
@@ -83,6 +90,10 @@ tipo cuenta
                 $('#tipo_id').val(result.tipo_id);
             }
         });
+    }
+
+    function add_tipo_cuenta(){
+        var view_url = '{ route("tipocuenta.index") }'
     }
 
     function fun_delete(id)

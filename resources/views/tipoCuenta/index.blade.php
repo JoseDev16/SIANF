@@ -11,7 +11,7 @@ tipo cuenta
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <button type="button" class="btn btn-primary" onclick="limpiarCampos()" data-toggle="modal" data-target="#addModal">
         Agregar tipo cuenta
-    </button>
+    </button>        
 </div>
 <!-- Mensaje Exito -->
 @if(session('exito'))
@@ -49,6 +49,12 @@ tipo cuenta
         @endforeach
     </thead>
 </table>
+
+<a href="{{ route('cuenta.index')}}">
+    <button type="button" class="btn btn-danger">
+        Volver
+    </button>
+</a> 
 <!-- Fin Table -->
 <!-- Paginacion de tabla -->
 <div class="d-flex justify-content-center">

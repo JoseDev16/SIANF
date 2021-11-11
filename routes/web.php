@@ -32,8 +32,8 @@ Route::middleware(['auth:sanctum', 'verified'])
 
 
 //Rutas para usuario
-
 Route::middleware(['auth'])->group(function () {
+
     //Rutas usuarios
     Route::get('/usuarios/detalle/{id}', [UserController::class, 'show'])->name('user.show')->middleware('permission:user.create');
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
@@ -61,23 +61,26 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Rutas para las cuentas con middleware de autentificacion agrupadas
-    Route::prefix('Cuentas')->middleware('auth')->group(function() {
+    Route::prefix('Cuenta')->middleware('auth')->group(function() {
         Route::get('', [CuentaController::class, 'index'])->name('cuenta.index');
         Route::post('', [CuentaController::class, 'store'])->name('cuenta.store');
         Route::get('/edit/{id}', [CuentaController::class, 'edit_view'])->name('cuenta.edit_view');
         Route::post('/edit', [CuentaController::class, 'edit'])->name('cuenta.edit');
         Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy');
+
+        // Ruta para los tipos de cuenta
+        Route::prefix('TipoCuenta')->middleware('auth')->group(function () {
+
+            Route::get('', [TipoCuentaController::class, 'index'])->name('tipocuenta.index');
+            Route::post('', [TipoCuentaController::class, 'store'])->name('tipocuenta.store');
+            Route::get('/edit/{id}', [TipoCuentaController::class, 'edit_view'])->name('tipocuenta.edit_view');
+            Route::post('/edit', [TipoCuentaController::class, 'edit'])->name('tipocuenta.edit');
+            Route::delete('', [TipoCuentaController::class, 'destroy'])->name('tipocuenta.destroy');
+    
+        });
     });
 
-    Route::prefix('TipoCuenta')->middleware('auth')->group(function () {
-
-        Route::get('', [TipoCuentaController::class, 'index'])->name('tipocuenta.index');
-        Route::post('', [TipoCuentaController::class, 'store'])->name('tipocuenta.store');
-        Route::get('/edit/{id}', [TipoCuentaController::class, 'edit_view'])->name('tipocuenta.edit_view');
-        Route::post('/edit', [TipoCuentaController::class, 'edit'])->name('tipocuenta.edit');
-        Route::delete('', [TipoCuentaController::class, 'destroy'])->name('tipocuenta.destroy');
-
-    });
+    
 
     Route::prefix('RazonesFinancieras')->middleware('auth')->group(function () {
 
