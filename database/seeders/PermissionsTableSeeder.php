@@ -23,7 +23,7 @@ class PermissionsTableSeeder extends Seeder
         $empresa = Role::create(['name' => 'empresa']);
 
         //Permisos para usuario
-        Permission::create(['name' => 'user.index'])->syncRoles([$admin]);
+        Permission::create(['name' => 'user.index'])->syncRoles([$admin, $empresa]);
         Permission::create(['name' => 'user.edit'])->syncRoles([$admin]);
         Permission::create(['name' => 'user.show'])->syncRoles([$admin]);
         Permission::create(['name' => 'user.create'])->syncRoles([$admin]);
@@ -53,7 +53,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'categoria.destroy'])->syncRoles([$admin]);*/
 
         //Permisos para cuenta
-        Permission::create(['name' => 'cuenta.index'])->syncRoles([$empresa]);
+        Permission::create(['name' => 'cuenta.index'])->syncRoles([$admin, $empresa]);
         Permission::create(['name' => 'cuenta.show'])->syncRoles([$admin]);
         Permission::create(['name' => 'cuenta.store'])->syncRoles([$empresa]);
         Permission::create(['name' => 'cuenta.update'])->syncRoles([$empresa]);
@@ -89,6 +89,7 @@ class PermissionsTableSeeder extends Seeder
         //Permisos para empresa
         Permission::create(['name' => 'empresa.index'])->syncRoles([$admin]);
         Permission::create(['name' => 'empresa.store'])->syncRoles([$admin]);
+        Permission::create(['name' => 'empresa.show'])->syncRoles([$admin]);
         Permission::create(['name' => 'empresa.update'])->syncRoles([$admin]);
         Permission::create(['name' => 'empresa.delete'])->syncRoles([$admin]);
         Permission::create(['name' => 'empresa.edit'])->syncRoles([$admin]);

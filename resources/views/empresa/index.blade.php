@@ -42,11 +42,15 @@ Empresas
         
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td> {{ $empresa->nombre }} </td>
+            <td> {{ $empresa->nombreEmpresa }} </td>
             <td> {{ $empresa->nit }} </td>
             <td> {{ $empresa->nrc }} </td>
             <td> {{ $empresa->sector_id }} </td>
             <td style="display: flex">
+                
+                <a class="fas fa-w fa-eye" title="Mostrar" href="{{route('empresa.show', $empresa->id)}}"
+                    style="color:gray !important; margin-right: 12px"></a>
+                
                 <button type="button" title="Editar" data-toggle="modal" data-target="#editEmpresaModal"
                     class="fas fa-w fa-edit"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"

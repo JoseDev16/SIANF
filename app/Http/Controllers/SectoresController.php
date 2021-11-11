@@ -16,7 +16,7 @@ class SectoresController extends Controller
     public function index()
     {
         //Index of Cuenta
-        $sectores = Sector::orderBy('id','desc')->paginate(5);
+        $sectores = Sector::orderBy('id')->paginate(5);
         return \view('sectores.index',compact('sectores'));
     }
 
