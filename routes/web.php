@@ -66,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('', [CuentaController::class, 'store'])->name('cuenta.store');
         Route::get('/edit/{id}', [CuentaController::class, 'edit_view'])->name('cuenta.edit_view');
         Route::post('/edit', [CuentaController::class, 'edit'])->name('cuenta.edit');
-        Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy');
+        Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy');        
 
         // Ruta para los tipos de cuenta
         Route::prefix('TipoCuenta')->middleware('auth')->group(function () {
@@ -120,6 +120,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [EmpresaController::class, 'edit_view'])->name('empresa.edit_view');
         Route::post('/edit', [EmpresaController::class, 'edit'])->name('empresa.edit');
         Route::delete('', [EmpresaController::class, 'destroy'])->name('empresa.destroy');
+        Route::get('/Empresa/detalle/{id}', [EmpresaController::class, 'show'])->name('empresa.show');
     });
 
     Route::prefix('Sectores')->middleware('auth')->group(function() {

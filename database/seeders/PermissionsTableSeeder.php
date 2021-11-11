@@ -54,17 +54,18 @@ class PermissionsTableSeeder extends Seeder
 
         //Permisos para cuenta
         Permission::create(['name' => 'cuenta.index'])->syncRoles([$empresa]);
+        Permission::create(['name' => 'cuenta.show'])->syncRoles([$admin]);
         Permission::create(['name' => 'cuenta.store'])->syncRoles([$empresa]);
         Permission::create(['name' => 'cuenta.update'])->syncRoles([$empresa]);
         Permission::create(['name' => 'cuenta.delete'])->syncRoles([$empresa]);
         Permission::create(['name' => 'cuenta.edit'])->syncRoles([$empresa]);
 
         //Permisos para tipo cuenta
-        Permission::create(['name' => 'tipocuenta.index'])->syncRoles([$admin]);
-        Permission::create(['name' => 'tipocuenta.store'])->syncRoles([$admin]);
-        Permission::create(['name' => 'tipocuenta.update'])->syncRoles([$admin]);
-        Permission::create(['name' => 'tipocuenta.delete'])->syncRoles([$admin]);
-        Permission::create(['name' => 'tipocuenta.edit'])->syncRoles([$admin]);
+        // Permission::create(['name' => 'tipocuenta.index'])->syncRoles([$admin]);
+        // Permission::create(['name' => 'tipocuenta.store'])->syncRoles([$admin]);
+        // Permission::create(['name' => 'tipocuenta.update'])->syncRoles([$admin]);
+        // Permission::create(['name' => 'tipocuenta.delete'])->syncRoles([$admin]);
+        // Permission::create(['name' => 'tipocuenta.edit'])->syncRoles([$admin]);
 
         //Permisos para parametros
         Permission::create(['name' => 'parametros.index'])->syncRoles([$admin]);

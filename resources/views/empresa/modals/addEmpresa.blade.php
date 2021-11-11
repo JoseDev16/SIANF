@@ -69,22 +69,19 @@
                             @foreach ($sectores as $sec)
                             <option value="{{$sec->id}}"> {{$sec->nombre}} </option>
                             @endforeach
-                    </div>
-                        
-                        <div class="form-group required">   
-                            <div class="modal-footer d-flex justify-content-center">
-                                <input type="hidden" name="user" value="{{auth()->user()->name}}">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class='fas fa-check-circle'></i>
-                                    Guardar
-                                </button>
-                                <a href="" class="btn btn-primary" data-dismiss="modal">
-                                    <i class='fa fa-times'></i>
-                                    Cancelar
-                                </a>
-                            </div>
-                        </div>
+                    </div>                    
                 </form>
+                <div class="modal-footer d-flex justify-content-center">
+                    <input type="hidden" name="user" value="{{auth()->user()->name}}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class='fas fa-check-circle'></i>
+                        Guardar
+                    </button>
+                    <a href="" class="btn btn-primary" data-dismiss="modal">
+                        <i class='fa fa-times'></i>
+                        Cancelar
+                    </a>
+                </div>
             </div>
         </div>
     </div>
