@@ -42,7 +42,7 @@ Empresas
         
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td> {{ $empresa->nombreEmpresa }} </td>
+            <td> {{ $empresa->nombre }} </td>
             <td> {{ $empresa->nit }} </td>
             <td> {{ $empresa->nrc }} </td>
             <td> {{ $empresa->sector_id }} </td>

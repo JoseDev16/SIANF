@@ -17,9 +17,9 @@ class EmpresaController extends Controller
     public function index()
     {
 
-        $empresas = Empresa::orderBy('id','desc')
+        $empresas = Empresa::orderBy('id','asc')
         ->paginate(5);
-        $sectores = Sector::orderBy('id','desc')->paginate(5);
+        $sectores = Sector::orderBy('id','asc')->paginate(5);
         return \view('empresa.index',compact('empresas','sectores'));
     }
 
@@ -50,10 +50,7 @@ class EmpresaController extends Controller
 
     public function show($id)
     {
-        $empresa = Empresa::find($id);
-        // ->join('sectors', 'empresas.sector_id' , '=', 'sectors.id')
-        // ->get('nombre','nit','nrc','sector_id','nombre');
-        // $sectores =Sector::all();
+        $empresa = Empresa::find($id);       
         return view('empresa.modals.showEmpresa', ['empresaShow' => $empresa]);
     }
 
