@@ -116,7 +116,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('', [CuentaController::class, 'store'])->name('cuenta.store')->middleware('permission:cuenta.store');
             Route::get('/edit/{id}', [CuentaController::class, 'edit_view'])->name('cuenta.edit_view');
             Route::post('/edit', [CuentaController::class, 'edit'])->name('cuenta.edit')->middleware('permission:cuenta.edit');
-            Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy')->middleware('permission:cuenta.destroy');        
+            Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy')->middleware('permission:cuenta.delete');        
         });
         
         

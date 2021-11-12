@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Actividad;
 use App\Models\Cuenta;
+use App\Models\Empresa;
 use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CuentaController extends Controller
 {
@@ -16,10 +19,36 @@ class CuentaController extends Controller
      */
     public function index()
     {
-        //Index of Cuenta
-        $cuentas = Cuenta::orderBy('id','desc')->paginate(5);
-        $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
-        return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+        $idUsuario = Auth::id();
+        if($idUsuario>1){
+            $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+
+            
+            //Index of Cuenta
+            // $cuentas = Cuenta::where('empresa_id', '=', $empresa->id)->orderBy('id','asc')->paginate(5);
+            // $cuentas = DB::table('cuentas')
+            // ->join('empresas', 'empresas.id', '=', 'cuentas.empresa_id')
+            // ->select('id','nombre','codigo','tipo_id');
+
+            $cuentas = Cuenta::orderBy('id','desc')->paginate(5);
+            $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
+            return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+        }
+        else{
+
+        }
+        
+
+        // $empresa = DB::table('empresas')->join('cuentas', 'cuentas.empresa_id', '=', 'enmpresas.id')
+        // ->select('id','nombre','codigo','empresa_id', 'tipo_id');
+
+        // $cuentas = DB::table('cuentas')
+        
+        // ->join('empresas', 'empresas.id', '=', 'cuenta.empresa_id')
+        // ->select('nombre','codigo','tipo_id','empresa_id')
+        // ->get();
+
+        
     }
 
     /**
@@ -39,12 +68,22 @@ class CuentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //Agrega la cuenta
-        Cuenta::create($request->all());
+    {      
+        //Agrega la cuenta a la empresa
+        $idUsuario = Auth::id();
+        $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+        
+        //Objeto de cuenta
+        $cuenta = New Cuenta();
+        $cuenta->codigo = $request->codigo;
+        $cuenta->nombre = $request->nombre;
+        $cuenta->empresa_id = $empresa->id;
+        $cuenta->tipo_id = $request->tipo_id;
+        $cuenta->save();
+
         $logs = new Actividad();
         $logs->log($request->user,'crear el tipo cuenta: '.$request->nombre);
-        return back()->with('exito','La cuenta ha sido agregada exitosamente');
+        return back()->with('exito','La cuenta ha sido agregada exitosamente');        
     }
 
     /**

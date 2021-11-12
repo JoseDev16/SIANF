@@ -43,13 +43,13 @@ tipo cuenta
         </tr>
         @foreach ($cuentas as $cuenta )
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ $cuenta->id }}</td>
             <td>{{ $cuenta->codigo }}</td>
             <td> {{ $cuenta->nombre }} </td>
             <td style="display: flex">
                 {{-- Fin detalle cuenta --}}
                 <button type="button" title="Editar" data-toggle="modal" data-target="#editCuentaModal"
-                    class="fas fa-w fa-eye"
+                    class="fas fa-w fa-edit"
                     style="color:gray !important; background-color:transparent; border: 0px solid;"
                     onclick="fun_edit('{{$cuenta->id}}')"></button>
                 <button type="button" title="Eliminar" data-toggle="modal" data-target="#deleteModal"
