@@ -149,9 +149,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
     //Ruta de grafico de ratio
-    Route::prefix('GraficoRatio')->middleware('auth')->group(function() {
+    /*Route::prefix('GraficoRatio')->middleware('auth')->group(function() {
         Route::get('', [GraficoRatioController::class, 'index'])->name('GraficoRatio.index');
-    });
+    });*/
+
+    Route::get('VerGrafRatios', [GraficoRatioController::class, 'verGrafRazones'])->middleware(['auth:sanctum','verified'])->name('grafratios.index');
+    
 
 });
 

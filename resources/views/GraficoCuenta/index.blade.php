@@ -74,6 +74,7 @@ const myChart = new Chart(ctx, {
             //titulo del gráfico
             label: 'Variación de Cuentas',
             data: [12, 19, 3, 5, 2, 3],
+            //Cores de las barras
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
