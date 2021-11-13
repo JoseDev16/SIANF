@@ -17,26 +17,78 @@ class CuentaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $idUsuario = Auth::id();
-        if($idUsuario>1){
+    public function index($id=null)
+    {                        
+        if($id!=null){
+            // Funciona con el usuario administrador        
+            $cuentas = DB::table('cuentas')
+            ->where('cuentas.empresa_id', '=', $id)
+            ->orderBy('cuentas.id','desc')
+            ->paginate(5);
+            
+            $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
+
+            return view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+        } 
+        else{
+            $idUsuario = Auth::id();
             $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
 
-            
-            //Index of Cuenta
-            // $cuentas = Cuenta::where('empresa_id', '=', $empresa->id)->orderBy('id','asc')->paginate(5);
-            // $cuentas = DB::table('cuentas')
-            // ->join('empresas', 'empresas.id', '=', 'cuentas.empresa_id')
-            // ->select('id','nombre','codigo','tipo_id');
+            $empresa->id=$id;
+            $cuentas = DB::table('cuentas')
+            ->where('cuentas.empresa_id', '=', $id)
+            ->orderBy('cuentas.id','desc')
+            ->paginate(5);
 
-            $cuentas = Cuenta::orderBy('id','desc')->paginate(5);
             $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
-            return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
-        }
-        else{
 
+            return view('cuenta.index',compact('cuentas', 'tiposCuenta'));
         }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $idUsuario = Auth::id();
+        // if($idUsuario>1){
+
+        //     // Listado de cuentas para el usuario con id mayor a 1 
+        //     // Solucion cutre XD
+        //     $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+
+        //     $cuentas = DB::table('cuentas')
+        //     ->join('empresas', 'cuentas.empresa_id', '=' , $empresa->id)
+        //     ->get('cuentas.nombre', 'cuentas.codigo')
+        //     ->orderBy('cuentas.id','desc')
+        //     ->paginate(5); 
+        //     $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
+        //     return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+        // }
+        // else{
+
+        //     $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+
+        //     $cuentas = DB::table('cuentas')
+        //     ->join('empresas', 'cuentas.empresa_id', '=' , $empresa->id)
+        //     ->orderBy('cuentas.id','desc')
+        //     ->paginate(5);            
+        //     $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
+        //     return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+
+        // }
         
 
         // $empresa = DB::table('empresas')->join('cuentas', 'cuentas.empresa_id', '=', 'enmpresas.id')

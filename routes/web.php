@@ -101,6 +101,7 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('cuentas-excel', 'CuentaPeriodoController@store')->middleware(['auth:sanctum','verified'])->name('cuentas.store');
     Route::post('cuentas-excel', [CuentaPeriodoController::class, 'store'])->name('cuentas.store');
     
+    //Ruta de las empresas
     Route::prefix('Empresa')->middleware('auth')->group(function (){
 
         Route::get('',[EmpresaController::class, 'index'])->name('empresa.index');        
@@ -108,15 +109,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [EmpresaController::class, 'edit_view'])->name('empresa.edit_view');
         Route::post('/edit', [EmpresaController::class, 'edit'])->name('empresa.edit');
         Route::delete('', [EmpresaController::class, 'destroy'])->name('empresa.destroy');
+        
         Route::get('/detalle/{id}', [EmpresaController::class, 'show'])->name('empresa.show');
 
         // Rutas para las cuentas con middleware de autentificacion agrupadas
         Route::prefix('Cuenta')->middleware('auth')->group(function() {
-            Route::get('', [CuentaController::class, 'index'])->name('cuenta.index')->middleware('permission:cuenta.index');
-            Route::post('', [CuentaController::class, 'store'])->name('cuenta.store')->middleware('permission:cuenta.store');
+            // Route::get('/', [CuentaController::class, 'index'])->name('cuenta.index')->middleware('permission:cuenta.index');
+
+            // Ruta que devuelve las cuentas de la empresa que esta logueada o seleccionada por parte del administrador
+            Route::get('/{id?}', [CuentaController::class, 'index'],
+            function($empresa = null){
+                return $empresa;
+            })->name('cuenta.index')->middleware('permission:cuenta.index');
+
+
+            Route::post('/', [CuentaController::class, 'store'])->name('cuenta.store')->middleware('permission:cuenta.store');
             Route::get('/edit/{id}', [CuentaController::class, 'edit_view'])->name('cuenta.edit_view');
             Route::post('/edit', [CuentaController::class, 'edit'])->name('cuenta.edit')->middleware('permission:cuenta.edit');
-            Route::delete('', [CuentaController::class, 'destroy'])->name('cuenta.destroy')->middleware('permission:cuenta.delete');        
+            Route::delete('/', [CuentaController::class, 'destroy'])->name('cuenta.destroy')->middleware('permission:cuenta.delete');        
         });
         
         

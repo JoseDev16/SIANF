@@ -26,6 +26,13 @@ Mostrar Empresa
 
         <br>
         <div class="form-group row">
+          <label for="user" class="col-md-5 col-form-label text-md-right">{{ __('ID:') }}</label>
+          <div class="col-md-6">
+            <label id="user" class="col-md-10 col-form-label text-md-left">{{ $empresaShow->id }}</label>
+          </div>
+        </div>
+        
+        <div class="form-group row">
           <label for="user" class="col-md-5 col-form-label text-md-right">{{ __('NIT:') }}</label>
           <div class="col-md-6">
             <label id="user" class="col-md-10 col-form-label text-md-left">{{ $empresaShow->nit }}</label>
