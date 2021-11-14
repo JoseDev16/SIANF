@@ -3,43 +3,28 @@
 Analisis vertical
 @endsection
 @section('content')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Analisis vertical</li>        
-    </ol>
-</nav>
-<!-- Mensaje Exito -->
-@if(session('exito'))
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    {{ session('exito') }}
-</div>
-@endif
-<!-- Fin Mensaje Exito -->
-<form action="{{ route('razon.store') }}" method="POST" enctype="multipart/form-data" name="miForm">
-    @csrf
-    <div class="mb-3">
-      
-      
-        <label for="" class="control-label">Periodo: </label>        
-        <select class="form-control{{ $errors->has('periodo_id') ? ' is-invalid' : '' }} form-select" aria-label="Default select example" name="periodo_id">
-            @foreach ($periodos as $periodo )
-            <option value="{{ $periodo->id }}">{{ $periodo->year }}</option>
-            @endforeach
-        </select>
-        @if($errors->has('periodo_id'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('periodo_id') }}</strong>
-        </span>
-        @endif
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="card-title">Análisis Vertical</h2>
+                <p>Una vez seleccionado el periodo se comparara automaticamente con el periodo del año anterior</p>
+            </div>
+            <div class="col-md-4">
+                    <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);" id="AverticalPeriodo" class="form-control">
+                        <option value=-1>Seleccione un período...</option>
+                        @foreach ($periodos as $periodo)                            
+                            <option value="{{ route( 'analisis_vertical.show', $periodo->id)}}">{{$periodo->year}}</option>                            
+                        @endforeach
+                    </select>
+            </div>
+        </div>
     </div>
-    <label for="">Una vez seleccionado el periodo se calculara automaticamente con el periodo del año anterior</label>
-    <br>
-    <button type="submit" class="btn btn-primary">Calcular ratios</button>
-</form>
+    <div class="card-body">
+        @yield('cuerpo_analisis')
+    </div>
+    <div class="card-footer">
 
-<script type="text/javascript">
-
-
-</script>
+    </div>
+</div>
 @endsection

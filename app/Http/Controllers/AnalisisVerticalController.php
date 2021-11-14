@@ -54,9 +54,38 @@ class AnalisisVerticalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_periodo)
     {
         //
+        $idUsuario = Auth::id();
+        $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+        if(!$periodo = Periodo::Where('id', $id_periodo)->Where('empresa_id', $empresa->id)->first())
+            abort(503);
+
+        $periodos=Periodo::Where('empresa_id', $empresa->id)->get();
+
+        // $activo=DB::table('cuentas')
+        // ->join('')
+        
+        // $periodos=Periodo::Where('empresa_id',$empresa->id)->get();
+        // //Traer las vincuncalicones de Activo, pasivo y capital
+        // $activo=DB::select('select c.*, cp.total from (select * from cuenta 
+        // where id=(select id_cuenta from vinculacion_cuenta where id_empresa=? 
+        // and id_cuenta_sistema=(select id from cuenta_sistema where nombre=?))) as c
+        // left join (select * from cuenta_periodo where periodo_id=?) as cp
+        // on c.id= cp.cuenta_id',[$empresa->id, 'Activos', $id_periodo]);
+
+        // $pasivo=DB::select('select c.*, cp.total from (select * from cuenta 
+        // where id=(select id_cuenta from vinculacion_cuenta where id_empresa=? 
+        // and id_cuenta_sistema=(select id from cuenta_sistema where nombre=?))) as c
+        // left join (select * from cuenta_periodo where periodo_id=?) as cp
+        // on c.id= cp.cuenta_id',[$empresa->id, 'Pasivos', $id_periodo]);
+
+        // $capital=DB::select('select c.*, cp.total from (select * from cuenta 
+        // where id=(select id_cuenta from vinculacion_cuenta where id_empresa=? 
+        // and id_cuenta_sistema=(select id from cuenta_sistema where nombre=?))) as c
+        // left join (select * from cuenta_periodo where periodo_id=?) as cp
+        // on c.id= cp.cuenta_id',[$empresa->id, 'Patrimonio', $id_periodo]);
     }
 
     /**

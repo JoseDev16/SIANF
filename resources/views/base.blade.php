@@ -168,7 +168,7 @@
                 <div id="collapsePages50" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Analisis financieras</h6>
-                        <a class="collapse-item" href="#">Analisis horizontal</a>
+                        <a class="collapse-item" href="{{ route('analisis.horizontal') }}">Analisis horizontal</a>
                         <a class="collapse-item" href="{{ route('analisis_vertical.index') }}">Analisis vertical</a>                        
                     </div>
                 </div>
