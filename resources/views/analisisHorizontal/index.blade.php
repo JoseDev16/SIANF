@@ -1,11 +1,11 @@
 @extends('base')
 @section('titulo')
-Estados financieros
+Analisis horizontal
 @endsection
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Estados financieros</li>
+        <li class="breadcrumb-item active" aria-current="page">Analisis horizontal</li>
     </ol>
 </nav>
 <!-- Mensaje Exito -->
@@ -16,7 +16,7 @@ Estados financieros
 </div>
 @endif
 <!-- Fin Mensaje Exito -->
-<form action="{{ route('estados.index') }}" method="GET" enctype="multipart/form-data" name="miForm">
+<form action="{{ route('analisis.horizontal') }}" method="GET" enctype="multipart/form-data" name="miForm">
     <div class ="row">
     <label for="" class="control-label">Periodo: </label>
     <div class="col mb-3">
@@ -33,12 +33,11 @@ Estados financieros
         @endif
     </div>
     <div class="col">
-    <button type="submit" class="btn btn-primary">Ver ratios</button>
+      <button type="submit" class="btn btn-primary">Ver</button>
     </div>
 </form>
-<h4 class="mt-4">Estados financieros del {{ $año }}</h4>
+<h4 class="mt-4">Analisis horizontal {{ $año }}</h4>
 @if(count($balancegeneral) > 0)
-
 <!-- Table -->
 <div class="container-fluid"> 
     <div class="row">
@@ -51,43 +50,106 @@ Estados financieros
 
 <div class="row">
     <div class="col">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Cuenta</th>
-                    <th scope="col">Monto</th>
-                    <th scope="col">Variacion</th>
-                    <th scope="col">%</th>
-                </tr>
-                @foreach ($balancegeneral as $balance)
-                @if($balance->tipo_id == 1)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>
-                        @if($balance->nombre == "Activo")
-                            <strong> {{ $balance->nombre }} </strong>
-                        @else
-                            {{ $balance->nombre }}
-                        @endif
-                    </td>
-                    <td> 
-                        @if($balance->nombre == "Activo")
-                            <strong> {{ $balance->total }} </strong>
-                        @else
-                            {{ $balance->total }}
-                        @endif
-                    </td>
-                </tr>
-                @endif
-                @endforeach
-            </thead>
+      {{-- <div class="col-sm-6" style="float:left"> --}}
+        <table class="table col-sm-6" style="float:left">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Cuenta</th>
+              <th scope="col">Monto año {{$año-1}}</th>                    
+            </tr>
+            @foreach ($balanceAnterior as $balance)
+            @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
+              <tr>
+                <td>{{$loop->iteration}}</td>
+                <td>
+                  @if($balance->nombre == "Activo")
+                    <strong> {{ $balance->nombre }} </strong>
+                  @else
+                    {{ $balance->nombre }}
+                  @endif
+                </td>                    
+                <td> 
+                  @if($balance->nombre == "Activo")
+                      <strong> {{ $balance->total }} </strong>
+                  @else
+                      {{ $balance->total }}
+                  @endif
+                </td>                    
+              </tr>
+            @endif
+            @endforeach             
+          </thead>
         </table>
+      {{-- </div> --}}
+      {{-- <div class="col-sm-2" style="float: left"> --}}
+        <table class="table col-sm-2" style="float:left">
+          <thead class="thead-dark">
+              <tr>                  
+                <th scope="col">Monto año {{$año}}</th>                    
+              </tr>
+              @foreach ($balancegeneral as $balance)
+              @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
+                <tr>                                     
+                  <td> 
+                    @if($balance->nombre == "Activo")
+                        <strong> {{ $balance->total }} </strong>
+                    @else
+                        {{ $balance->total }}
+                    @endif
+                  </td>                    
+                </tr>
+              @endif
+              @endforeach
+          </thead>
+        </table>
+        <table class="table col-sm-2" style="float:left">
+          <thead class="thead-dark">
+              <tr>                  
+                <th scope="col">Variacion absoluta</th>                    
+              </tr>
+              @foreach ($balancegeneral as $balance)
+              @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
+                <tr>                                     
+                  <td> 
+                    @if($balance->nombre == "Activo")
+                        <strong> {{ $balance->total }} </strong>
+                    @else
+                        {{ $balance->total }}
+                    @endif
+                  </td>                    
+                </tr>
+              @endif
+              @endforeach
+          </thead>
+        </table>
+        <table class="table col-sm-2" style="float:left">
+          <thead class="thead-dark">
+              <tr>                  
+                <th scope="col">%</th>                    
+              </tr>
+              @foreach ($balancegeneral as $balance)
+              @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
+                <tr>                                     
+                  <td> 
+                    @if($balance->nombre == "Activo")
+                        <strong> {{ $balance->total }} </strong>
+                    @else
+                        {{ $balance->total }}
+                    @endif
+                  </td>                    
+                </tr>
+              @endif
+              @endforeach
+          </thead>
+        </table>
+      {{-- </div> --}}
+        
         <!-- Fin Table -->
         <!-- Paginacion de tabla -->
     </div> 
 
-    <div class="col">
+    {{-- <div class="col">
     <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -116,7 +178,7 @@ Estados financieros
                         @endif
                     </td>
                     <td>
-                      
+
                     </td>
                 </tr>
                 @endif
@@ -126,7 +188,7 @@ Estados financieros
         <!-- Fin Table -->
         <!-- Paginacion de tabla -->
     </div> 
-</div> 
+</div>  --}}
 @else
 <div class="alert alert-danger">
     <strong>¡Opps! Parece que no tienes ningun estado registrado.</strong>
@@ -154,7 +216,10 @@ Estados financieros
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Cuenta</th>
-                    <th scope="col">Monto</th>
+                    <th scope="col">Monto del periodo {{ $año-1}}</th>                    
+                    <th scope="col">Monto del periodo {{ $año }}</th>
+                    <th scope="col">Variacion</th>
+                    <th scope="col">%</th>
                 </tr>
                 @foreach ($estadoresultados as $estado )
                 @if($estado->tipo_id == 4 || $estado->tipo_id == 5 || $estado->tipo_id == 6)
@@ -166,7 +231,8 @@ Estados financieros
                         @else
                             {{ $estado->nombre }} 
                         @endif
-                    </td>
+                    </td>     
+                                  
                     <td>  
                         @if($estado->tipo_id == 6)
                             <strong> {{ $estado->total }} </strong>
@@ -176,7 +242,17 @@ Estados financieros
                     </td>
                 </tr>
                 @endif
-                @endforeach
+                @endforeach   
+                
+                <td>
+                  @foreach ($estadoAnterior as $anterior)
+                    @if($anterior->tipo_id == 6)
+                      <strong> {{ $anterior->total }} </strong>
+                    @else
+                      {{ $anterior->total }}
+                    @endif
+                  @endforeach
+                </td>
             </thead>
         </table>
         <!-- Fin Table -->

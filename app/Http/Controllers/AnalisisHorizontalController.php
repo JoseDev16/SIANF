@@ -51,6 +51,18 @@ class AnalisisHorizontalController extends Controller
         })
         ->get();
 
+
+        $balanceAnterior = CuentaPeriodo::join('cuentas', 'cuentas.id', '=', 'cuenta_periodos.cuenta_id')
+        ->where('periodo_id', '=', $periodo_id-1)
+        ->where(function($query){
+            $query->where('cuentas.tipo_id', '=', 1)
+            ->orWhere('cuentas.tipo_id', '=', 2)
+            ->orWhere('cuentas.tipo_id', '=', 3);
+        })
+        ->get();
+
+        // $analisisH = array_merge($balanceAnterior,$balancegeneral);
+
         $estadoresultados = CuentaPeriodo::join('cuentas', 'cuentas.id', '=', 'cuenta_periodos.cuenta_id')
         ->where('periodo_id', '=', $periodo_id)
         ->where(function($query){
@@ -60,8 +72,21 @@ class AnalisisHorizontalController extends Controller
         })
         ->get();
 
+        
+
+        $estadoAnterior = CuentaPeriodo::join('cuentas', 'cuentas.id', '=', 'cuenta_periodos.cuenta_id')
+        ->where('periodo_id', '=', $periodo_id-1)
+        ->where(function($query){
+            $query->where('cuentas.tipo_id', '=', 4)
+            ->orWhere('cuentas.tipo_id', '=', 5)
+            ->orWhere('cuentas.tipo_id', '=', 6);
+        })
+        ->get();
+
+
         //$tiposParametro = TipoParametros::orderBy('id','asc')->get();
-        return \view('analisisHorizontal.index',compact('periodos', 'año', 'balancegeneral', 'estadoresultados'));
+        return \view('analisisHorizontal.index',compact('periodos', 'año', 'balancegeneral', 'estadoresultados', 
+        'balanceAnterior', 'estadoAnterior'));
     }
 
     /**
