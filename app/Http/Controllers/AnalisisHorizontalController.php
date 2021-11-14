@@ -7,6 +7,7 @@ use App\Models\Empresa;
 use App\Models\Periodo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AnalisisHorizontalController extends Controller
 {
@@ -83,7 +84,8 @@ class AnalisisHorizontalController extends Controller
         })
         ->get();
 
-
+        // dd($estadoAnterior);
+        
         //$tiposParametro = TipoParametros::orderBy('id','asc')->get();
         return \view('analisisHorizontal.index',compact('periodos', 'año', 'balancegeneral', 'estadoresultados', 
         'balanceAnterior', 'estadoAnterior'));

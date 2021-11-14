@@ -48,150 +48,80 @@ Analisis horizontal
     </div>
 </div>
 
-<div class="row">
-    <div class="col">
-      {{-- <div class="col-sm-6" style="float:left"> --}}
-        <table class="table col-sm-6" style="float:left">
+<div class="row">  
+  <div class="col-12">
+      <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Cuenta</th>
-              <th scope="col">Monto año {{$año-1}}</th>                    
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" class="text-center">Cuenta</th>
+              <th scope="col" class="text-center">Monto año {{$año-1}}</th>
+              <th scope="col" class="text-center">Monto año {{$año}}</th>
+              <th scope="col" class="text-center">Variacion absoluta</th>
+              <th scope="col" class="text-center">%</th>
             </tr>
-            @foreach ($balanceAnterior as $balance)
-            @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
-              <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>
-                  @if($balance->nombre == "Activo")
-                    <strong> {{ $balance->nombre }} </strong>
-                  @else
-                    {{ $balance->nombre }}
-                  @endif
-                </td>                    
-                <td> 
-                  @if($balance->nombre == "Activo")
-                      <strong> {{ $balance->total }} </strong>
-                  @else
-                      {{ $balance->total }}
-                  @endif
-                </td>                    
-              </tr>
-            @endif
-            @endforeach             
-          </thead>
-        </table>
-      {{-- </div> --}}
-      {{-- <div class="col-sm-2" style="float: left"> --}}
-        <table class="table col-sm-2" style="float:left">
-          <thead class="thead-dark">
-              <tr>                  
-                <th scope="col">Monto año {{$año}}</th>                    
-              </tr>
-              @foreach ($balancegeneral as $balance)
-              @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
-                <tr>                                     
-                  <td> 
-                    @if($balance->nombre == "Activo")
-                        <strong> {{ $balance->total }} </strong>
-                    @else
-                        {{ $balance->total }}
-                    @endif
-                  </td>                    
-                </tr>
-              @endif
-              @endforeach
-          </thead>
-        </table>
-        <table class="table col-sm-2" style="float:left">
-          <thead class="thead-dark">
-              <tr>                  
-                <th scope="col">Variacion absoluta</th>                    
-              </tr>
-              @foreach ($balancegeneral as $balance)
-              @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
-                <tr>                                     
-                  <td> 
-                    @if($balance->nombre == "Activo")
-                        <strong> {{ $balance->total }} </strong>
-                    @else
-                        {{ $balance->total }}
-                    @endif
-                  </td>                    
-                </tr>
-              @endif
-              @endforeach
-          </thead>
-        </table>
-        <table class="table col-sm-2" style="float:left">
-          <thead class="thead-dark">
-              <tr>                  
-                <th scope="col">%</th>                    
-              </tr>
-              @foreach ($balancegeneral as $balance)
-              @if($balance->tipo_id == 1 || $balance->tipo_id == 2 || $balance->tipo_id == 3)
-                <tr>                                     
-                  <td> 
-                    @if($balance->nombre == "Activo")
-                        <strong> {{ $balance->total }} </strong>
-                    @else
-                        {{ $balance->total }}
-                    @endif
-                  </td>                    
-                </tr>
-              @endif
-              @endforeach
-          </thead>
-        </table>
-      {{-- </div> --}}
-        
-        <!-- Fin Table -->
-        <!-- Paginacion de tabla -->
-    </div> 
 
-    {{-- <div class="col">
-    <table class="table">
-            <thead class="thead-dark">
+            @for($i=0; $i<count($balancegeneral); $i++)
+              @if($balancegeneral[$i]->tipo_id == 1 || $balancegeneral[$i]->tipo_id == 2 || $balancegeneral[$i]->tipo_id == 3)
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Cuenta</th>
-                    <th scope="col">Monto</th>
-                    <th scope="col">Variacion</th>
-                    <th scope="col">%</th>
-                </tr>
-                @foreach ($balancegeneral as $balance)
-                @if($balance->tipo_id == 2 || $balance->tipo_id == 3)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>  
-                        @if($balance->nombre == "Pasivo" || $balance->nombre == "Patrimonio")
-                            <strong> {{ $balance->nombre }} </strong>
-                        @else
-                            {{ $balance->nombre }}
-                        @endif
-                    </td>
-                    <td>
-                        @if($balance->nombre == "Pasivo" || $balance->nombre == "Patrimonio")
-                            <strong> {{ $balance->total }} </strong>
-                        @else
-                            {{ $balance->total }}
-                        @endif
-                    </td>
-                    <td>
+                  {{-- Para el codigo --}}
+                  <td class="text-center">{{$i+1}}</td>
+                  
+                  {{-- Para el nombre --}}
+                  <td class="text-center"> 
+                    @if($balancegeneral[$i]->nombre == "Activo")                      
+                        <strong> {{ $balancegeneral[$i]->nombre}} </strong>
+                    @else
+                        {{ $balancegeneral[$i]->nombre }}
+                    @endif
+                  </td>       
+                  
+                  {{-- Para el monto del año anterior --}}
+                  <td class="text-center"> 
+                    @if($balanceAnterior[$i]->nombre == "Activo")                      
+                        <strong> {{ $balanceAnterior[$i]->total}} </strong>
+                    @else
+                        {{ $balanceAnterior[$i]->total }}
+                    @endif
+                  </td> 
 
-                    </td>
+                  {{-- Para el año seleccionado --}}
+                  <td class="text-center"> 
+                    @if($balancegeneral[$i]->nombre == "Activo")                      
+                        <strong> {{ $balancegeneral[$i]->total}} </strong>
+                    @else
+                        {{ $balancegeneral[$i]->total }}
+                    @endif
+                  </td>       
+                  
+                  {{-- Para el la variacion abs --}}
+                  <td class="text-center"> 
+                    @if($balancegeneral[$i]->nombre == "Activo")                      
+                        <strong> {{ round(($balancegeneral[$i]->total - $balanceAnterior[$i]->total),2) }} </strong>
+                    @else
+                        {{ round(($balancegeneral[$i]->total - $balanceAnterior[$i]->total),2) }}
+                    @endif
+                  </td>    
+                  
+                  {{-- Para la variacion porc --}}
+                  <td class="text-center"> 
+                    @if($balancegeneral[$i]->nombre == "Activo")                      
+                        <strong> {{ round(($balancegeneral[$i]->total - $balanceAnterior[$i]->total)/ ($balanceAnterior[$i]->total),2) }} </strong>
+                    @else
+                        {{ round(($balancegeneral[$i]->total - $balanceAnterior[$i]->total)/ ($balanceAnterior[$i]->total),2) }}
+                    @endif
+                  </td>               
                 </tr>
-                @endif
-                @endforeach
-            </thead>
+              @endif
+            @endfor
+          </thead>
         </table>
-        <!-- Fin Table -->
-        <!-- Paginacion de tabla -->
-    </div> 
-</div>  --}}
+    </div>
+</div> 
+
 @else
 <div class="alert alert-danger">
-    <strong>¡Opps! Parece que no tienes ningun estado registrado.</strong>
+    <strong>¡Opps! Parece que no tienes ningun balance general registrado.</strong>
 </div>
 @endif   
 
@@ -208,9 +138,8 @@ Analisis horizontal
 </div>
 
 <div class="row">
-    <div class="col-2">
-    </div> 
-    <div class="col">
+     
+    <div class="col-12">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -221,45 +150,71 @@ Analisis horizontal
                     <th scope="col">Variacion</th>
                     <th scope="col">%</th>
                 </tr>
-                @foreach ($estadoresultados as $estado )
-                @if($estado->tipo_id == 4 || $estado->tipo_id == 5 || $estado->tipo_id == 6)
+                @for($i=0; $i<count($estadoresultados); $i++)
+                @if($estadoresultados[$i]->tipo_id == 4 || $estadoresultados[$i]->tipo_id == 5 || $estadoresultados[$i]->tipo_id == 6)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td> 
-                        @if($estado->tipo_id == 6)
-                            <strong> (=) {{ $estado->nombre }} </strong>
-                        @else
-                            {{ $estado->nombre }} 
-                        @endif
+                    <td class="text-center">{{ $i +1}}</td>
+                    <td class="text-center"> 
+                      @if($estadoresultados[$i]->tipo_id == 6)
+                        <strong> (=) {{ $estadoresultados[$i]->nombre }} </strong>
+                      @else
+                        {{ $estadoresultados[$i]->nombre }} 
+                      @endif
                     </td>     
-                                  
-                    <td>  
-                        @if($estado->tipo_id == 6)
-                            <strong> {{ $estado->total }} </strong>
-                        @else
-                            {{ $estado->total }}
-                        @endif
+                    
+                    {{-- MOnto para el año anterior --}}
+                    <td class="text-center">
+                      @if($estadoAnterior[$i]->tipo_id == 6)
+                        <strong> {{ $estadoAnterior[$i]->total }} </strong>
+                      @else
+                        {{ $estadoAnterior[$i]->total }}
+                      @endif
                     </td>
+                    
+                    {{-- Monto para el año actual --}}
+                    <td class="text-center">
+                      @if($estadoresultados[$i]->tipo_id == 6)
+                        <strong> {{ $estadoresultados[$i]->total }} </strong>
+                      @else
+                        {{ $estadoresultados[$i]->total }}
+                      @endif
+                    </td>
+
+                    {{-- Para la variacion abs --}}
+                    <td class="text-center"> 
+                      @if($estadoresultados[$i]->tipo_id == 6)                      
+                          <strong> {{ round(($estadoresultados[$i]->total - $estadoAnterior[$i]->total),2) }} </strong>
+                      @else
+                          {{ round(($estadoresultados[$i]->total - $estadoAnterior[$i]->total),2) }}
+                      @endif
+                    </td> 
+
+                    {{-- Para la variacion porc --}}
+                    <td class="text-center"> 
+                      @if($estadoresultados[$i]->tipo_id == 6)
+                        @if($estadoAnterior[$i]->total!=0)
+                          <strong> {{ round((($estadoresultados[$i]->total - $estadoAnterior[$i]->total)/$estadoAnterior[$i]->total),2) }} </strong>
+                        @else
+                          No afectado
+                        @endif                                              
+                      @else
+                        @if($estadoAnterior[$i]->total!=0)
+                          {{ round((($estadoresultados[$i]->total - $estadoAnterior[$i]->total)/$estadoAnterior[$i]->total),2) }}
+                        @else
+                          No afectado
+                        @endif
+                      @endif
+                    </td>  
                 </tr>
                 @endif
-                @endforeach   
-                
-                <td>
-                  @foreach ($estadoAnterior as $anterior)
-                    @if($anterior->tipo_id == 6)
-                      <strong> {{ $anterior->total }} </strong>
-                    @else
-                      {{ $anterior->total }}
-                    @endif
-                  @endforeach
-                </td>
+                @endfor
             </thead>
         </table>
         <!-- Fin Table -->
         <!-- Paginacion de tabla -->
         @else
         <div class="alert alert-danger">
-            <strong>¡Opps! Parece que no tienes ningun estado registrado.</strong>
+            <strong>¡Opps! Parece que no tienes ningun estado resultado registrado.</strong>
         </div>
         @endif
     </div>
