@@ -144,16 +144,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('VerRatios', [RazonController::class, 'verRazones'])->middleware(['auth:sanctum','verified'])->name('verratios.index');
     Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum','verified'])->name('verpromedio.index');
 
-    Route::prefix('GraficoCuenta')->middleware('auth')->group(function() {
-        Route::get('', [GraficoCuentaController::class, 'index'])->name('GraficoCuenta.index');
-    });
-
-    //Ruta de grafico de ratio
-    /*Route::prefix('GraficoRatio')->middleware('auth')->group(function() {
-        Route::get('', [GraficoRatioController::class, 'index'])->name('GraficoRatio.index');
-    });*/
-
     Route::get('VerGrafRatios', [GraficoRatioController::class, 'verGrafRazones'])->middleware(['auth:sanctum','verified'])->name('grafratios.index');
+
+    Route::get('VerGrafCuentas', [GraficoCuentaController::class, 'verGrafCuentas'])->middleware(['auth:sanctum','verified'])->name('grafcuentas.index');
     
 
 });

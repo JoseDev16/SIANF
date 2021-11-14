@@ -12,69 +12,74 @@ tipo cuenta
 </nav>
 
 <!--Select para opciones de graficos -->
-<div class="form-group required">
-    <div class = "row">
-        <div class = "col">
-            <label for="" class="control-label">Periodo de Inicio: </label>
-            <input maxlength="20" type="date" name="PInicio"
-            class="form-control"
-            placeholder="dd-mm-yyyy" min="1997-01-01" max="2030-12-31" value="" required
-            autofocus>
-        </div>
-        <div class = "col">
-            <label for="" class="control-label">Periodo de Fin: </label>
-            <input maxlength="20" type="date" name="PInicio"
-            class="form-control"
-            placeholder="dd-mm-yyyy" min="1997-01-01" max="2030-12-31" value="" required
-            autofocus>
-            </select>
-        </div>
-        <div class = "col">
-            <label for="" class="control-label">Cuenta: </label>
-            <select class="form-control" name="Cuenta">
-            <option value="">Seleccionar </option>>
-            </select>
-        </div>
-        <div class = "col">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <button type="button" class="btn btn-primary">
-                    Generar Gráfico
-                </button>
+<form action="{{ route('grafcuentas.index') }}" method="GET" enctype="multipart/form-data" name="miForm">
+        <div class="form-group required">
+            <div class = "row">
+                <div class = "col">
+                    <label for="" class="control-label">Periodo de Inicio: </label>
+                    <select class="form-control" name="periodo_inicio">
+                    <option value="">Seleccionar </option>>
+                    @foreach ($periodos as $pinicio)
+                    <option value="{{$pinicio->id}}"> {{$pinicio->year}} </option>
+                    @endforeach
+                    </select>
+                </div>
+                <div class = "col">
+                    <label for="" class="control-label">Periodo de Fin: </label>
+                    <select class="form-control" name="periodo_final">
+                    <option value="">Seleccionar </option>>
+                    @foreach ($periodos as $pfin)
+                    <option value="{{$pfin->id}}"> {{$pfin->year}} </option>
+                    @endforeach
+                    </select>
+                </div>
+                <div class = "col">
+                    <label for="" class="control-label">Cuentas: </label>
+                    <select class="form-control" name="cuenta_id">
+                    <option value="">Seleccionar </option>>
+                    @foreach ($cuentas as $cu)
+                    <option value="{{$cu->id}}"> {{$cu->nombre}} </option>
+                    @endforeach
+                    </select>
+                </div>
+                <div class = "col">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <button type="submit" class="btn btn-primary">
+                            Generar Gráfico
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+</form>
 
 <!-- Canvas necesario para generar gráfico -->
-<div class="row col-8">
-    <canvas id="myChart" width="400" height="400"></canvas>
+@if(count($cuentaPeriodo) > 0)
+<div class="row col-6">
+    <canvas id="myChart" width="400" height="200"></canvas>
 </div>
-
-<!--Aviso meintras no se seleccione ninguna opción para gráfico -->
-<!--@if(count($GraficosCuenta) > 0)-->
-<!--<canvas id="myChart" width="400" height="400"></canvas>-->
-<!--@else
-<div class="alert alert-danger">
-    <strong>¡Opps! Parece que no has seleccionado las opciones para generar los gráficos.</strong>
-</div>
-@endif-->
+@endif
 
 <!-- Libreria necesaria para poder generar el gráfico -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 
 <!-- Elementos que deben de ir en el gráfico -->
 <script>
+
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
     //type: 'line',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [@foreach ($cuentaPeriodo as $cuePeriodo) 
+                        '{{ $cuePeriodo->year }}', 
+                    @endforeach],
         datasets: [{
             //titulo del gráfico
-            label: 'Variación de Cuentas',
-            data: [12, 19, 3, 5, 2, 3],
-            //Cores de las barras
+            label: 'Variación de cuentas',
+            data: [@foreach ($cuentaPeriodo as $cuePeriodo) 
+                        {{ $cuePeriodo->total }},
+                    @endforeach],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
