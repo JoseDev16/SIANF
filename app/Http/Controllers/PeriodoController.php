@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Periodo;
 use App\Models\Empresa;
 use App\Models\Actividad;
+use App\Models\CuentaPeriodo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,7 @@ class PeriodoController extends Controller
         return \view('periodo.index',compact('periodos'));
     }
 
-    public function verEstados()
+    public function verEstados(Request $request)
     {
         //
         //$empresa_id = 1;
@@ -31,8 +32,39 @@ class PeriodoController extends Controller
         $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
 
         $periodos = Periodo::where('empresa_id', '=', $empresa->id)->orderBy('id','desc')->paginate(5);
+
+        $año = 0;
+        if($request->periodo_id==null){
+            $periodo_id = Periodo::join('cuenta_periodos','cuenta_periodos.periodo_id','=','periodos.id')
+            ->where('empresa_id', '=', $empresa->id)->max('cuenta_periodos.periodo_id');
+            $periodo = Periodo::find($periodo_id);
+            $año = $periodo->year;
+        } else {
+            $periodo = Periodo::find($request->periodo_id);
+            $periodo_id = $periodo->id;
+            $año = $periodo->year;
+        }
+
+        $balancegeneral = CuentaPeriodo::join('cuentas', 'cuentas.id', '=', 'cuenta_periodos.cuenta_id')
+        ->where('periodo_id', '=', $periodo_id)
+        ->where(function($query){
+            $query->where('cuentas.tipo_id', '=', 1)
+            ->orWhere('cuentas.tipo_id', '=', 2)
+            ->orWhere('cuentas.tipo_id', '=', 3);
+        })
+        ->get();
+
+        $estadoresultados = CuentaPeriodo::join('cuentas', 'cuentas.id', '=', 'cuenta_periodos.cuenta_id')
+        ->where('periodo_id', '=', $periodo_id)
+        ->where(function($query){
+            $query->where('cuentas.tipo_id', '=', 4)
+            ->orWhere('cuentas.tipo_id', '=', 5)
+            ->orWhere('cuentas.tipo_id', '=', 6);
+        })
+        ->get();
+
         //$tiposParametro = TipoParametros::orderBy('id','asc')->get();
-        return \view('estados.index',compact('periodos'));
+        return \view('estados.index',compact('periodos', 'año', 'balancegeneral', 'estadoresultados'));
     }
 
     public function store(Request $request)

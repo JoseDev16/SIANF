@@ -38,7 +38,6 @@ class ParametrosSeeder extends Seeder
             ["Razón de Cobertura de Gastos Financieros",1],
             ["Rentabilidad Neta del Patrimonio",1],
             ["Rentabilidad por Acción",1],
-            ["Rentabilidad Neta del Patrimonio",1],
             ["Rentabilidad del Activo",1],
             ["Rentabilidad sobre ventas",1],
             ["Rentabilidad sobre inversión",1],

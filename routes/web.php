@@ -11,6 +11,8 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\CuentaPeriodoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\SectoresController;
+use App\Http\Controllers\RazonController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -127,7 +129,18 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('', [SectoresController::class, 'destroy'])->name('sectores.destroy');
     });
 
-    Route::get('Estados', [PeriodoController::class, 'verEstados'])->middleware(['auth:sanctum','verified'])->name('estados.index');
+    Route::get('EstadosFinancieros', [PeriodoController::class, 'verEstados'])->middleware(['auth:sanctum','verified'])->name('estados.index');
+
+    Route::prefix('Razones')->middleware('auth')->group(function() {
+        Route::get('', [RazonController::class, 'index'])->name('razon.index');
+        Route::post('', [RazonController::class, 'store'])->name('razon.store');
+        Route::get('/edit/{id}', [RazonController::class, 'edit_view'])->name('razon.edit_view');
+        Route::post('/edit', [RazonController::class, 'edit'])->name('razon.edit');
+        Route::delete('', [RazonController::class, 'destroy'])->name('razon.destroy');
+    });
+
+    Route::get('VerRatios', [RazonController::class, 'verRazones'])->middleware(['auth:sanctum','verified'])->name('verratios.index');
+    Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum','verified'])->name('verpromedio.index');
 
 });
 
