@@ -17,7 +17,7 @@ class CuentaController extends Controller
     public function index()
     {
         //Index of Cuenta
-        $cuentas = Cuenta::orderBy('id','desc')->paginate(5);
+        $cuentas = Cuenta::orderBy('codigo','asc')->paginate(10);
         $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
         return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
     }
