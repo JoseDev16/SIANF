@@ -25,7 +25,7 @@ class RazonController extends Controller
         $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
 
         $periodos = Periodo::where('empresa_id', '=', $empresa->id)->orderBy('id','desc')->get();
-        
+
         return \view('calculoratios.index',compact('periodos'));
     }
 
@@ -47,7 +47,7 @@ class RazonController extends Controller
             $periodo_id = $periodo->id;
             $año = $periodo->year;
         }
-        
+
         $ratios = Razon::join('parametros', 'parametros.id', '=', 'razons.parametro_id')->where('periodo_id', '=', $periodo_id)->get();
 
         return \view('calculoratios.ratios',compact('periodos', 'ratios', 'año'));
@@ -61,8 +61,8 @@ class RazonController extends Controller
         ->where('user_id', '=', $idUsuario)->first();
         $sector = $empresa->nombreSector;
         $periodos = Periodo::where('empresa_id', '=', $empresa->id)->orderBy('id','desc')->get();
-        
-        
+
+
         if($request->periodo_id==null){
             $año = PromedioRatios::where('sector_id', '=', $empresa->sector_id)->max('year');
         } else {
@@ -100,11 +100,11 @@ class RazonController extends Controller
 
         // Obteniendo el periodo actual
         $periodo_act = Periodo::find($request->periodo_id);
-        
+
         // Validacion para evitar calcular otra vez los mismos ratios
         $razones = Razon::where('periodo_id', '=', $periodo_act->id)->first();
         if($razones == null){
-            
+
             // Obteniendo estados actuales
             $balance_act = BalanceGeneral::where('periodo_id', '=', $periodo_act->id)->first();
             $estado_act = EstadoResultado::where('periodo_id', '=', $periodo_act->id)->first();
@@ -121,28 +121,28 @@ class RazonController extends Controller
                 }
 
                 // Razon circulante
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 1,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->activo_corriente / $balance_act->pasivo_corriente),
                 ]);
 
                 // Prueba acida
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 2,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->activo_corriente - $balance_act->inventario) / $balance_act->pasivo_corriente,
                 ]);
-                
+
                 // Razon de capital de trabajo
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 3,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->activo_corriente - $balance_act->pasivo_corriente) / $balance_act->activos,
                 ]);
 
                 // Razon de efectivo
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 4,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->efectivo / $balance_act->pasivo_corriente),
@@ -154,33 +154,33 @@ class RazonController extends Controller
                     $inventario_prom = ($balance_act->inventario + $balance_ant->inventario) / 2;
                 }
 
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 5,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->costo_ventas) / $inventario_prom,
                 ]);
 
                 // Razon de dias de inventario
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 6,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($inventario_prom / ($estado_act->costo_ventas / 365)),
                 ]);
 
-                // Razon de rotacion de cuentas por cobrar 
+                // Razon de rotacion de cuentas por cobrar
                 $cpc_prom = $balance_act->cuentas_por_cobrar;
                 if($periodo_ant!=null){
                     $cpc_prom = ($balance_act->cuentas_por_cobrar + $balance_ant->cuentas_por_cobrar) / 2;
                 }
 
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 7,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->ventas_netas / $cpc_prom),
                 ]);
-                
+
                 // Razon de periodo medio de cobranza
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 8,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($cpc_prom * 365) / $estado_act->ventas_netas,
@@ -192,14 +192,14 @@ class RazonController extends Controller
                     $cpp_prom = ($balance_act->cuentas_por_pagar + $balance_ant->cuentas_por_pagar) / 2;
                 }
 
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 9,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->costo_ventas / $cpp_prom),
                 ]);
 
                 // Periodo medio de pago
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 10,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($cpp_prom * 365) / $estado_act->costo_ventas,
@@ -211,7 +211,7 @@ class RazonController extends Controller
                     $activo_total_prom = ($balance_act->activos + $balance_ant->activos) / 2;
                 }
 
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 11,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->ventas_netas / $activo_total_prom),
@@ -223,49 +223,49 @@ class RazonController extends Controller
                     $activo_fijo_prom = ($balance_act->activo_fijo_neto + $balance_ant->activo_fijo_neto) / 2;
                 }
 
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 12,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->ventas_netas / $activo_fijo_prom),
                 ]);
-                
+
                 // Indice de margen bruto
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 13,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_bruta / $estado_act->ventas_netas),
                 ]);
 
                 // Indice de margen operativa
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 14,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_operativa / $estado_act->ventas_netas),
                 ]);
 
                 // Grado de endeudamiento
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 15,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->pasivos / $balance_act->activos),
                 ]);
 
                 // Grado de propiedad
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 16,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->patrimonio / $balance_act->activos),
                 ]);
 
                 // Razon de endeudamiento
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 17,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($balance_act->pasivos / $balance_act->patrimonio),
                 ]);
-                
+
                 // Razon de cobetura de gastos financieros
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 18,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_antes_de_i) / $estado_act->gastos_financieros,
@@ -277,35 +277,35 @@ class RazonController extends Controller
                     $patrimonio_prom = ($balance_act->patrimonio + $balance_ant->patrimonio) / 2;
                 }
 
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 19,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_neta) / $patrimonio_prom,
                 ]);
 
                 // Rentabilidad por accion
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 20,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_neta / $periodo_act->acciones),
                 ]);
 
                 // Rentabilidad del activo
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 21,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_neta / $activo_total_prom),
                 ]);
 
                 // Rentabilidad sobre ventas
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 22,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->utilidad_neta / $estado_act->ventas_netas),
                 ]);
-                
+
                 // Rentabilidad sobre la inversion
-                $razon = Razon::create([  
+                $razon = Razon::create([
                     'parametro_id' => 23,
                     'periodo_id' => $periodo_act->id,
                     'double' => ($estado_act->ventas_netas - $estado_act->costo_ventas) / $estado_act->costo_ventas,
@@ -329,7 +329,7 @@ class RazonController extends Controller
                     $cont = 0;
                     $promedio = 0;
                     foreach($ratios as $ratio){
-                        $suma += $ratio->double; 
+                        $suma += $ratio->double;
                         $cont++;
                     }
                     $promedio = $suma/$cont;
@@ -354,12 +354,78 @@ class RazonController extends Controller
             } else {
                 return back()->with('exito','No se han ingresado datos de este periodo');
             }
-            
+
         } else {
             return back()->with('exito','Ya se calcularon los ratios para este periodo');
         }
 
-        
+
+    }
+
+
+
+    public function compareYearsView(){
+        $userId = Auth::id();
+        $empresa = Empresa::where('user_id',$userId)->first();
+        $periodos = Periodo::where('empresa_id',$empresa->id)->get();
+        return view('comparacionAños.index',compact("periodos","empresa")) ;
+    }
+
+    public function compareSectorView(){
+        $userId = Auth::id();
+        $empresa = Empresa::where('user_id',$userId)->first();
+        $periodos = Periodo::where('empresa_id',$empresa->id)->get();
+        return view('comparacionSector.index',compact("periodos","empresa")) ;
+    }
+
+    public function compareYears(Request $request){
+        $periodos = $request->periodos;
+        $periodosList = array();
+
+        foreach($periodos as $periodo){
+
+            array_push($periodosList,Periodo::find($periodo));
+        }
+        $ratiosPeriodo1 = Razon::getRatios($periodos[0]);
+        $ratiosPeriodo2 = Razon::getRatios($periodos[1]);
+        $cantRatios = count($ratiosPeriodo1);
+
+        for ($i=0; $i <$cantRatios ; $i++) {
+            $data[$i] = [
+                'nombre_ratio' => $ratiosPeriodo1[$i]->parametro,
+                'valor_prom1'  => $ratiosPeriodo1[$i]->double,
+                'valor_prom2'  => $ratiosPeriodo2[$i]->double
+            ];
+        }
+        return compact("data","periodosList");
+
+    }
+    
+//Tiene que recibir el periodo a comparar
+//En empresa ya te va el nombre del sector para que lo mandes
+    public function compareSector(Request $request){
+        $periodoId = $request->periodo_id;
+        $periodo = Periodo::findOrFail($periodoId)
+                            ->with('empresa.sector')
+                            ->first();
+
+        $ratiosPromedio = PromedioRatios::where('sector_id', $periodo->empresa->sector->id)
+                                        ->where('year', 2021)
+                                        ->get();
+
+        $ratiosEmpresa = Razon::getRatios($periodoId);
+        $cantRatios = count($ratiosEmpresa);
+
+        for ($i=0; $i <$cantRatios ; $i++) {
+            $data[$i] = [
+                'nombre_ratio'      => $ratiosEmpresa[$i]->parametro,
+                'valor_empresa'     => $ratiosEmpresa[$i]->double,
+                'valor_promedio'    => $ratiosPromedio[$i]->valor_promedio
+            ];
+        }
+
+        return compact("data","periodo");
+
     }
 
     /**
