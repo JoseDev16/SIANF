@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AnalisisVerticalController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\ParametrosController;
@@ -141,6 +142,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('VerRatios', [RazonController::class, 'verRazones'])->middleware(['auth:sanctum','verified'])->name('verratios.index');
     Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum','verified'])->name('verpromedio.index');
+
+
+    /*------------------------------------------- ANALISIS-VERTICAL-------------------------------------------*/
+	
+	Route::get('/analisis_vertical', [AnalisisVerticalController::class, 'index'])->name('analisis_vertical.index');
+	
+	// Route::get('/{id_periodo}/analisis_vertical', 'AnalisisVerticalController@show')->name('analisis_vertical.show')
+	// ->middleware('has.permission:analisis.show');
 
 });
 

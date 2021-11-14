@@ -158,6 +158,23 @@
             </li>
             @endcan
 
+           
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages50"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-box"></i>
+                    <span>Analisis financiero</span>
+                </a>
+                <div id="collapsePages50" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Analisis financieras</h6>
+                        <a class="collapse-item" href="#">Analisis horizontal</a>
+                        <a class="collapse-item" href="{{ route('analisis_vertical.index') }}">Analisis vertical</a>                        
+                    </div>
+                </div>
+            </li>
+            
+
             <!--Menu de empresas-->
             @can('empresa.index')
             <li class="nav-item">
