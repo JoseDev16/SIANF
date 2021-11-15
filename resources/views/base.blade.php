@@ -153,6 +153,9 @@
                         <a class="collapse-item" href="{{ route('razon.index') }}">Calcular ratios</a>
                         <a class="collapse-item" href="{{ route('verratios.index') }}">Ver ratios</a>
                         <a class="collapse-item" href="{{ route('verpromedio.index') }}">Ver promedio empresarial</a>
+                        <a class="collapse-item" href="{{ route('razon.comparacion') }}">Comparación Anual</a>
+                        <a class="collapse-item" href="{{ route('razon.comparacionSectorView') }}">Comparación por sector</a>
+                        <a class="collapse-item" href="{{ route('razon.comparacionValorView') }}">Comparación por valor</a>
                     </div>
                 </div>
             </li>
