@@ -45,7 +45,7 @@ Empresas
             <td> {{ $empresa->nombre }} </td>
             <td> {{ $empresa->nit }} </td>
             <td> {{ $empresa->nrc }} </td>
-            <td> {{ $empresa->sector_id }} </td>
+            <td> {{ $empresa->sector }} </td>
             <td style="display: flex">
                 <button type="button" title="Editar" data-toggle="modal" data-target="#editEmpresaModal"
                     class="fas fa-w fa-edit"

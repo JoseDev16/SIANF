@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoParametrosSeeder::class);
         $this->call(TipoCuentaSeeder::class);
         $this->call(ParametrosSeeder::class);
+        $this->call(SectorSeeder::class);
+        $this->call(EmpresaSeeder::class);
+        $this->call(PeriodoSeeder::class);
+        $this->call(CuentaSeeder::class);
+        $this->call(CuentaPeriodoSeeder::class);
+        $this->call(BalanceGeneralSeeder::class);
+        $this->call(EstadoResultadoSeeder::class);
         //$this->call(UserSeeder::class);
     }
 }

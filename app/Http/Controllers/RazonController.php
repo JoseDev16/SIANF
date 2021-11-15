@@ -41,7 +41,11 @@ class RazonController extends Controller
             $periodo_id = Periodo::join('razons', 'razons.periodo_id', '=', 'periodos.id')
                 ->where('empresa_id', '=', $empresa->id)->max('periodos.id');
             $periodo = Periodo::find($periodo_id);
-            $año = $periodo->year;
+            if($periodo == null){
+                $año = 0;
+            } else {
+                $año = $periodo->year;
+            }
         } else {
             $periodo = Periodo::find($request->periodo_id);
             $periodo_id = $periodo->id;

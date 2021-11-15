@@ -61,7 +61,7 @@
                     <!--LISTA DE SECTORES-->
                     <div class="form-group required">
                         <label for="" class="control-label">Sector: </label>
-                        <select maxlength="20" type="text" name="sector_id"
+                        <select maxlength="20"  name="sector_id"
                             class="form-control"
                             value="{{ old('sector_id') }}" required
                             autofocus>
@@ -69,6 +69,35 @@
                             @foreach ($sectores as $sec)
                             <option value="{{$sec->id}}"> {{$sec->nombre}} </option>
                             @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="" class="control-label">Usuario: </label>
+                        <input maxlength="20" type="text" name="username"
+                            class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                            placeholder="Ingrese el usuario de la empresa" value="{{ old('username') }}" required
+                            autofocus>
+
+                            @if($errors->has('username'))
+                                <span class="invalid-feedback" role="alert">
+                                     <strong>{{ $errors->first('username') }}</strong>
+                                </span>
+                             @endif
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="" class="control-label">Contraseña: </label>
+                        <input maxlength="20" type="password" name="password"
+                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                            placeholder="Ingrese el password de la empresa" value="{{ old('password') }}" required
+                            autofocus>
+
+                            @if($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
+                                     <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                             @endif
                     </div>
                         
                         <div class="form-group required">   

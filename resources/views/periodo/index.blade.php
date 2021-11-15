@@ -30,8 +30,6 @@ Periodos
             <th scope="col">#</th>
             <th scope="col">Año</th>
             <th scope="col">Acciones empresa</th>
-            <th scope="col">Gastos financieros</th>
-            <th scope="col">Inversion inicial</th>
             <th scope="col" width="20%">Acciones</th>
         </tr>
         @foreach ($periodos as $periodo )
@@ -39,8 +37,6 @@ Periodos
             <td>{{$loop->iteration}}</td>
             <td> {{ $periodo->year }} </td>
             <td> {{ $periodo->acciones }} </td>
-            <td> {{ $periodo->gastos_financieros }} </td>
-            <td> {{ $periodo->inversion_inicial }} </td>
             <td style="display: flex">
                 <button type="button" title="Editar" data-toggle="modal" data-target="#editPeriodoModal"
                     class="fas fa-w fa-edit"

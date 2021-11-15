@@ -42,31 +42,6 @@
                             @endif
                         </div>
 
-                        <div class="mb-3">
-                            <label for="" class="control-label">Gastos financieros: </label>
-                            <input maxlength="20" type="text" name="gastos_financieros" id="gastos_financieros"
-                                class="form-control{{ $errors->has('gastos_financieros') ? ' is-invalid' : '' }}"
-                                placeholder="Ingrese el gasto financiero" value="{{ old('gastos_financieros') }}" required
-                                autofocus>
-                            @if($errors->has('gastos_financieros'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('gastos_financieros') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="" class="control-label">Inversión inicial: </label>
-                            <input maxlength="20" type="text" name="inversion_inicial" id="inversion_inicial"
-                                class="form-control{{ $errors->has('inversion_inicial') ? ' is-invalid' : '' }}"
-                                placeholder="Ingrese la inversion inicial" value="{{ old('inversion_inicial') }}" required
-                                autofocus>
-                            @if($errors->has('inversion_inicial'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('inversion_inicial') }}</strong>
-                            </span>
-                            @endif
-                        </div>
                     </div>
                     <input type="hidden" name="user" value="{{auth()->user()->name}}">
                     <div class="modal-footer d-flex justify-content-center">
