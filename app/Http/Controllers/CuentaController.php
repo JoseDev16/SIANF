@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Actividad;
 use App\Models\Cuenta;
+use App\Models\Empresa;
 use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CuentaController extends Controller
 {
@@ -17,9 +20,33 @@ class CuentaController extends Controller
     public function index()
     {
         //Index of Cuenta
-        $cuentas = Cuenta::orderBy('id','desc')->paginate(5);
+
+        
+        $idUsuario = Auth::id();
+        $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+
+        $cuentas = DB::table('cuentas')
+        // El empresa->id nos devuelve la columna
+        ->select('cuentas.nombre', 'cuentas.codigo','cuentas.empresa_id','cuentas.id')
+        ->join('empresas', 'cuentas.empresa_id', '=' ,'empresas.id')
+        ->where('cuentas.empresa_id', '=', $empresa->id)
+        ->orderBy('codigo','asc')
+        ->paginate(10);         
+
+        // $cuentas = Cuenta::orderBy('codigo','asc')->paginate(10);
         $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
         return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
+
+        // $idUsuario = Auth::id();
+        // $empresa = Empresa::where('user_id', '=', $idUsuario)->first();
+        
+        // $cuentas = DB::table('cuentas')
+        // // El empresa->id nos devuelve la columna
+        // ->join('empresas', 'cuentas.empresa_id', '=' ,'empresas.id')
+        // ->where('cuentas.empresa_id', '=', $empresa->id)
+        // ->get();        
+        // $tiposCuenta = TipoCuenta::orderBy('id', 'asc')->get();
+        // return \view('cuenta.index',compact('cuentas', 'tiposCuenta'));
     }
 
     /**

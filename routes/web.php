@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AnalisisHorizontalController;
+use App\Http\Controllers\AnalisisVerticalController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\ParametrosController;
@@ -146,6 +148,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('VerGrafRatios', [GraficoRatioController::class, 'verGrafRazones'])->middleware(['auth:sanctum', 'verified'])->name('grafratios.index');
 
+
+    /*------------------------------------------- ANALISIS-VERTICAL-------------------------------------------*/
+	
+	Route::get('/analisis_vertical', [AnalisisVerticalController::class, 'index'])->name('analisis.vertical');    		
+
+    /*------------------------------------------- ANALISIS-HORIZONTAL -------------------------------------------*/
+    
+    Route::get('/analisis_horizontal', [AnalisisHorizontalController::class, 'verAnalisisH'])->name('analisis.horizontal');
+
+
+    Route::get('VerGrafRatios', [GraficoRatioController::class, 'verGrafRazones'])->middleware(['auth:sanctum','verified'])->name('grafratios.index');
     Route::get('VerGrafCuentas', [GraficoCuentaController::class, 'verGrafCuentas'])->middleware(['auth:sanctum', 'verified'])->name('grafcuentas.index');
 
 
