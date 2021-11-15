@@ -11,6 +11,8 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\CuentaPeriodoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\SectoresController;
+use App\Http\Controllers\GraficoCuentaController;
+use App\Http\Controllers\GraficoRatioController;
 use App\Http\Controllers\RazonController;
 
 
@@ -139,6 +141,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum', 'verified'])->name('verpromedio.index');
     Route::get('comparacion', [RazonController::class, 'compareYearsView'])->name('razon.comparacion');
     Route::get('comparacionSector', [RazonController::class, 'compareSectorView'])->name('razon.comparacionSectorView');
+    Route::get('VerRatios', [RazonController::class, 'verRazones'])->middleware(['auth:sanctum','verified'])->name('verratios.index');
+    Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum','verified'])->name('verpromedio.index');
+
+    Route::get('VerGrafRatios', [GraficoRatioController::class, 'verGrafRazones'])->middleware(['auth:sanctum','verified'])->name('grafratios.index');
+
+    Route::get('VerGrafCuentas', [GraficoCuentaController::class, 'verGrafCuentas'])->middleware(['auth:sanctum','verified'])->name('grafcuentas.index');
+    
+
+});
+
+
 
     Route::post('comparacionyears', [RazonController::class, 'compareYears'])->name('razon.comparacionYears');
     Route::post('comparacionSector', [RazonController::class, 'compareSector'])->name('razon.comparacionSector');
