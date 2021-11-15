@@ -13,4 +13,11 @@ class Razon extends Model
     protected $fillable = [
         'periodo_id','parametro_id','double'
     ];
+
+    public static function getRatios($peridoId){
+        return Razon::join('parametros', 'parametros.id', '=', 'razons.parametro_id')
+        ->where('periodo_id', '=', $peridoId)
+        ->get();
+
+    }
 }
