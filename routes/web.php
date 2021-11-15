@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Rutas para las cuentas con middleware de autentificacion agrupadas
-    Route::prefix('Cuentas')->middleware('auth')->group(function() {
+    Route::prefix('Cuentas')->middleware('auth')->group(function () {
         Route::get('', [CuentaController::class, 'index'])->name('cuenta.index');
         Route::post('', [CuentaController::class, 'store'])->name('cuenta.store');
         Route::get('/edit/{id}', [CuentaController::class, 'edit_view'])->name('cuenta.edit_view');
@@ -82,7 +82,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [TipoCuentaController::class, 'edit_view'])->name('tipocuenta.edit_view');
         Route::post('/edit', [TipoCuentaController::class, 'edit'])->name('tipocuenta.edit');
         Route::delete('', [TipoCuentaController::class, 'destroy'])->name('tipocuenta.destroy');
-
     });
 
     Route::prefix('RazonesFinancieras')->middleware('auth')->group(function () {
@@ -90,7 +89,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('', [ParametrosController::class, 'index'])->name('parametros.index');
         Route::get('/edit/{id}', [ParametrosController::class, 'edit_view'])->name('parametros.edit_view');
         Route::post('/edit', [ParametrosController::class, 'edit'])->name('parametros.edit');
-
     });
 
     Route::prefix('CuentasPeriodo')->middleware('auth')->group(function () {
@@ -100,7 +98,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [CuentaPeriodoController::class, 'edit_view'])->name('cuentaperiodo.edit_view');
         Route::post('/edit', [CuentaPeriodoController::class, 'edit'])->name('cuentaperiodo.edit');
         Route::delete('', [CuentaPeriodoController::class, 'destroy'])->name('cuentaperiodo.destroy');
-
     });
 
     Route::prefix('Periodo')->middleware('auth')->group(function () {
@@ -110,22 +107,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [PeriodoController::class, 'edit_view'])->name('periodo.edit_view');
         Route::post('/edit', [PeriodoController::class, 'edit'])->name('periodo.edit');
         Route::delete('', [PeriodoController::class, 'destroy'])->name('periodo.destroy');
-
     });
 
     //Route::get('cuentas-excel', 'CuentaPeriodoController@store')->middleware(['auth:sanctum','verified'])->name('cuentas.store');
     Route::post('cuentas-excel', [CuentaPeriodoController::class, 'store'])->name('cuentas.store');
-    
-    Route::prefix('Empresa')->middleware('auth')->group(function (){
 
-        Route::get('',[EmpresaController::class, 'index'])->name('empresa.index');
-        Route::post('',[EmpresaController::class, 'store'])->name('empresa.store');
+    Route::prefix('Empresa')->middleware('auth')->group(function () {
+
+        Route::get('', [EmpresaController::class, 'index'])->name('empresa.index');
+        Route::post('', [EmpresaController::class, 'store'])->name('empresa.store');
         Route::get('/edit/{id}', [EmpresaController::class, 'edit_view'])->name('empresa.edit_view');
         Route::post('/edit', [EmpresaController::class, 'edit'])->name('empresa.edit');
         Route::delete('', [EmpresaController::class, 'destroy'])->name('empresa.destroy');
     });
 
-    Route::prefix('Sectores')->middleware('auth')->group(function() {
+    Route::prefix('Sectores')->middleware('auth')->group(function () {
         Route::get('', [SectoresController::class, 'index'])->name('sectores.index');
         Route::post('', [SectoresController::class, 'store'])->name('sectores.store');
         Route::get('/edit/{id}', [SectoresController::class, 'edit_view'])->name('sectores.edit_view');
@@ -133,9 +129,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('', [SectoresController::class, 'destroy'])->name('sectores.destroy');
     });
 
-    Route::get('EstadosFinancieros', [PeriodoController::class, 'verEstados'])->middleware(['auth:sanctum','verified'])->name('estados.index');
+    Route::get('EstadosFinancieros', [PeriodoController::class, 'verEstados'])->middleware(['auth:sanctum', 'verified'])->name('estados.index');
 
-    Route::prefix('Razones')->middleware('auth')->group(function() {
+    Route::prefix('Razones')->middleware('auth')->group(function () {
         Route::get('', [RazonController::class, 'index'])->name('razon.index');
         Route::post('', [RazonController::class, 'store'])->name('razon.store');
         Route::get('/edit/{id}', [RazonController::class, 'edit_view'])->name('razon.edit_view');
@@ -143,6 +139,10 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('', [RazonController::class, 'destroy'])->name('razon.destroy');
     });
 
+    Route::get('VerRatios', [RazonController::class, 'verRazones'])->middleware(['auth:sanctum', 'verified'])->name('verratios.index');
+    Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum', 'verified'])->name('verpromedio.index');
+    Route::get('comparacion', [RazonController::class, 'compareYearsView'])->name('razon.comparacion');
+    Route::get('comparacionSector', [RazonController::class, 'compareSectorView'])->name('razon.comparacionSectorView');
     Route::get('VerRatios', [RazonController::class, 'verRazones'])->middleware(['auth:sanctum','verified'])->name('verratios.index');
     Route::get('PromedioEmpresarial', [RazonController::class, 'verPromedio'])->middleware(['auth:sanctum','verified'])->name('verpromedio.index');
 
@@ -168,4 +168,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    Route::post('comparacionyears', [RazonController::class, 'compareYears'])->name('razon.comparacionYears');
+    Route::post('comparacionSector', [RazonController::class, 'compareSector'])->name('razon.comparacionSector');
 
+    Route::get('comparacionValor', [RazonController::class, 'compareValorView'])->name('razon.comparacionValorView');
+    Route::post('comparacionValor', [RazonController::class, 'compareValor'])->name('razon.comparacionValor');
+});
