@@ -61,7 +61,7 @@ Ratios de la empresa
                 @elseif($ratio->parametro_id==6 || $ratio->parametro_id==8 || $ratio->parametro_id==10)
                 {{ number_format($ratio->double, 0) }} dias
 
-                @elseif($ratio->parametro_id==19 || $ratio->parametro_id==21 || $ratio->parametro_id==22|| $ratio->parametro_id==23)
+                @elseif($ratio->parametro_id==15 || $ratio->parametro_id==16 || $ratio->parametro_id==19 || $ratio->parametro_id==21 || $ratio->parametro_id==22|| $ratio->parametro_id==23)
                 {{ number_format($ratio->double, 4)*100 }}%
                 
                 @else
