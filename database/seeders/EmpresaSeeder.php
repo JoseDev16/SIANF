@@ -20,7 +20,7 @@ class EmpresaSeeder extends Seeder
         //
         $empresas = [
             ["Pull & Bear","645123-6","44165158", 2,"pull&bear", "empresa"],
-            ["Zara","946423-7","69328758", 1, "zara", "empresa"],
+            ["Zara","946423-7","69328758", 2, "zara", "empresa"],
             ["Electrónica Japonesa","645165-7","44165158", 1, "electronicajaponesa",  "empresa"],
             ["Radio Shack","060499-2","46516519", 1, "radioshack", "empresa"],
         ];
