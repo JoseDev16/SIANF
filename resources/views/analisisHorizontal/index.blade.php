@@ -106,9 +106,9 @@ Analisis horizontal
                   {{-- Para la variacion porc --}}
                   <td class="text-center"> 
                     @if($balancegeneral[$i]->nombre == "Activo")                      
-                        <strong> {{ round(($balancegeneral[$i]->total - $balanceAnterior[$i]->total)/ ($balanceAnterior[$i]->total),2) }} </strong>
+                        <strong> {{ round((($balancegeneral[$i]->total - $balanceAnterior[$i]->total)/ ($balanceAnterior[$i]->total)*100),2) }} </strong>
                     @else
-                        {{ round(($balancegeneral[$i]->total - $balanceAnterior[$i]->total)/ ($balanceAnterior[$i]->total),2) }}
+                        {{ round((($balancegeneral[$i]->total - $balanceAnterior[$i]->total)/ ($balanceAnterior[$i]->total)*100),2) }}
                     @endif
                   </td>               
                 </tr>
@@ -192,13 +192,13 @@ Analisis horizontal
             <td class="text-center"> 
               @if($estadoresultados[$i]->tipo_id == 6)
                 @if($estadoAnterior[$i]->total!=0)
-                  <strong> {{ round((($estadoresultados[$i]->total - $estadoAnterior[$i]->total)/$estadoAnterior[$i]->total),2) }} </strong>
+                  <strong> {{ round(((($estadoresultados[$i]->total - $estadoAnterior[$i]->total)/$estadoAnterior[$i]->total)*100),2) }}</strong>
                 @else
                   No afectado
                 @endif                                              
               @else
                 @if($estadoAnterior[$i]->total!=0)
-                  {{ round((($estadoresultados[$i]->total - $estadoAnterior[$i]->total)/$estadoAnterior[$i]->total),2) }}
+                  {{ round(((($estadoresultados[$i]->total - $estadoAnterior[$i]->total)/$estadoAnterior[$i]->total)*100),2) }}
                 @else
                   No afectado
                 @endif
