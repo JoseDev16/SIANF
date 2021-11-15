@@ -173,4 +173,4 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('comparacionValor', [RazonController::class, 'compareValorView'])->name('razon.comparacionValorView');
     Route::post('comparacionValor', [RazonController::class, 'compareValor'])->name('razon.comparacionValor');
-});
+
