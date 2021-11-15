@@ -149,16 +149,13 @@ Route::middleware(['auth'])->group(function () {
 
     /*------------------------------------------- ANALISIS-VERTICAL-------------------------------------------*/
 	
-	Route::get('/analisis_vertical', [AnalisisVerticalController::class, 'index'])->name('analisis_vertical.index');
-
-    Route::get('/{id_periodo}/analisis_vertical', [AnalisisVerticalController::class, 'show'])->name('analisis_vertical.show');
-	
-	// Route::get('/{id_periodo}/analisis_vertical', 'AnalisisVerticalController@show')->name('analisis_vertical.show')
-	// ->middleware('has.permission:analisis.show');
+	Route::get('/analisis_vertical', [AnalisisVerticalController::class, 'index'])->name('analisis.vertical');    		
 
     /*------------------------------------------- ANALISIS-HORIZONTAL -------------------------------------------*/
     
     Route::get('/analisis_horizontal', [AnalisisHorizontalController::class, 'verAnalisisH'])->name('analisis.horizontal');
+
+
     Route::get('VerGrafRatios', [GraficoRatioController::class, 'verGrafRazones'])->middleware(['auth:sanctum','verified'])->name('grafratios.index');
 
     Route::get('VerGrafCuentas', [GraficoCuentaController::class, 'verGrafCuentas'])->middleware(['auth:sanctum','verified'])->name('grafcuentas.index');
