@@ -79,8 +79,8 @@ class PeriodoController extends Controller
             $periodo = new Periodo();
             $periodo->year = $request->year;
             $periodo->acciones = $request->acciones;
-            $periodo->gastos_financieros = $request->gastos_financieros;
-            $periodo->inversion_inicial = $request->inversion_inicial;
+            $periodo->gastos_financieros = 0;
+            $periodo->inversion_inicial = 0;
             $periodo->empresa_id = $empresa->id;
             $periodo->save();
 
@@ -111,8 +111,8 @@ class PeriodoController extends Controller
         }
         $periodo->year = $request->year;
         $periodo->acciones = $request->acciones;
-        $periodo->gastos_financieros = $request->gastos_financieros;
-        $periodo->inversion_inicial = $request->inversion_inicial;
+        //$periodo->gastos_financieros = $request->gastos_financieros;
+        //$periodo->inversion_inicial = $request->inversion_inicial;
         $periodo->save();
 
         $logs = new Actividad();

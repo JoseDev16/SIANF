@@ -41,7 +41,11 @@ class RazonController extends Controller
             $periodo_id = Periodo::join('razons', 'razons.periodo_id', '=', 'periodos.id')
                 ->where('empresa_id', '=', $empresa->id)->max('periodos.id');
             $periodo = Periodo::find($periodo_id);
-            $año = $periodo->year;
+            if($periodo == null){
+                $año = 0;
+            } else {
+                $año = $periodo->year;
+            }
         } else {
             $periodo = Periodo::find($request->periodo_id);
             $periodo_id = $periodo->id;
@@ -372,6 +376,7 @@ class RazonController extends Controller
         $userId = Auth::id();
         $empresa = Empresa::where('user_id', $userId)->first();
         $periodos = Periodo::where('empresa_id', $empresa->id)->get();
+        //dd($periodos);
         return view('comparacionSector.index', compact("periodos", "empresa"));
     }
 
@@ -403,12 +408,13 @@ class RazonController extends Controller
     public function compareSector(Request $request)
     {
         $periodoId = $request->periodo_id;
-        $periodo = Periodo::findOrFail($periodoId)
+        $periodo2 = Periodo::where('id', $periodoId)
             ->with('empresa.sector')
             ->first();
+            //dd($periodo);
 
-        $ratiosPromedio = PromedioRatios::where('sector_id', $periodo->empresa->sector->id)
-            ->where('year', 2021)
+        $ratiosPromedio = PromedioRatios::where('sector_id', $periodo2->empresa->sector->id)
+            ->where('year', $periodo2->year)
             ->get();
 
         $ratiosEmpresa = Razon::getRatios($periodoId);
@@ -422,7 +428,7 @@ class RazonController extends Controller
             ];
         }
 
-        return view('comparacionSector.Comparacion', compact("data", "periodo"));
+        return view('comparacionSector.Comparacion', compact("data", "periodo2"));
     }
     public function compareValorView()
     {

@@ -18,33 +18,38 @@ class ParametrosSeeder extends Seeder
     {
         // Razones financieras
         $razones = [
-            ["Razón de Circulante",1],
-            ["Prueba Acida",1],
-            ["Razón de Capital de Trabajo",1],
-            ["Razón de Efectivo",1],
-            ["Razón de Rotación de Inventario",1],
-            ["Razón de días de Inventarios",1],
-            ["Razón de Rotación de cuentas por cobrar",1],
-            ["Razón de periodo medio de cobranza",1],
-            ["Razón de Rotación de cuentas por pagar",1],
-            ["Periodo medio de pago",1],
-            ["Índice de Rotación de Activos totales",1],
-            ["Índice de Rotación de Activos Fijos",1],
-            ["Índice de Margen Bruto",1],
-            ["Índice de Margen Operativo",1],
-            ["Grado de Endeudamiento",1],
-            ["Grado de Propiedad",1],
-            ["Razón de Endeudamiento Patrimonial",1],
-            ["Razón de Cobertura de Gastos Financieros",1],
-            ["Rentabilidad Neta del Patrimonio",1],
-            ["Rentabilidad por Acción",1],
-            ["Rentabilidad del Activo",1],
-            ["Rentabilidad sobre ventas",1],
-            ["Rentabilidad sobre inversión",1],
+            ["Razón de Circulante", 1.5, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Prueba Acida", 1.5, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Razón de Capital de Trabajo", 0.25, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Razón de Efectivo", 0.20, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Razón de Rotación de Inventario", 8, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Razón de días de Inventarios", 45, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Razón de Rotación de cuentas por cobrar", 9, 2, "Se nececita mejorar", "Los valores coinciden", "Comportamiento aceptable"],
+            ["Razón de periodo medio de cobranza", 40, 2, "Se nececita mejorar", "Los valores coinciden", "Comportamiento aceptable"],
+            ["Razón de Rotación de cuentas por pagar", 6, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Periodo medio de pago", 60, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Índice de Rotación de Activos totales", 2, 2, "Se nececita mejorar", "Los valores coinciden", "Comportamiento aceptable"],
+            ["Índice de Rotación de Activos Fijos", 2, 2, "Se nececita mejorar", "Los valores coinciden", "Comportamiento aceptable"],
+            ["Índice de Margen Bruto",0.5, 1, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Índice de Margen Operativo",0.1, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Grado de Endeudamiento",0.4 ,1, 2, 2, "Se nececita mejorar", "Los valores coinciden", "Comportamiento aceptable"],
+            ["Grado de Propiedad",0.6, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Razón de Endeudamiento Patrimonial", 1.5, 2, "Se nececita mejorar", "Los valores coinciden", "Comportamiento aceptable"],
+            ["Razón de Cobertura de Gastos Financieros", 2, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Rentabilidad Neta del Patrimonio", 0.20, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Rentabilidad por Acción", 100, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Rentabilidad del Activo", 0.08, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Rentabilidad sobre ventas", 0.02, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
+            ["Rentabilidad sobre inversión", 0.5, 1, "Comportamiento aceptable", "Los valores coinciden", "Se nececita mejorar"],
         ];
 
         foreach($razones as $razon){
-            Parametros::create(['parametro' => $razon[0], 'tipo_id' => $razon[1]]);
+            Parametros::create(['parametro' => $razon[0], 
+                                'valor' => $razon[1], 
+                                'tipo_id' => $razon[2],
+                                'mayor' => $razon[3], 
+                                'entre' => $razon[4],
+                                'menor' => $razon[5]]);
         }  
     }
 }

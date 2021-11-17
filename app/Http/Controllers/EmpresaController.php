@@ -17,24 +17,34 @@ class EmpresaController extends Controller
     public function index()
     {
 
-        $empresas = Empresa::orderBy('id','desc')->paginate(5);
-        $sectores = Sector::orderBy('id','desc')->paginate(5);
+        $empresas = Empresa::join('sectors', 'sectors.id', '=', 'empresas.sector_id')
+        ->select('empresas.id as id', 'empresas.nombre as nombre', 'nit', 'nrc', 'empresas.sector_id as sector_id', 'sectors.nombre as sector')
+        ->orderBy('empresas.id','desc')->paginate(5);
+        $sectores = Sector::orderBy('id','desc')->get();
         return \view('empresa.index',compact('empresas','sectores'));
     }
 
     public function store(Request $request)
     {
-        $empresa = Empresa::create($request->all());
-        $logs = new Actividad();
-        $logs->log($request->user,'crear la empresa: '.$request->nombre);
+        $empresa = new Empresa();
+        $empresa->nombre = $request->nombre;
+        $empresa->nit = $request->nit;
+        $empresa->nrc = $request->nrc;
+        $empresa->sector_id = $request->sector_id;
+        
+        if($empresa->save()){
+            $logs = new Actividad();
+            $logs->log($request->user,'crear la empresa: '.$request->nombre);
 
-        $user = User::create([  'name' => $request->nombre,
-                            'email' => $request->nombre.'@gmail.com',
-                            'username' => $request->nombre,
-                            'password' => Hash::make('empresa')]);
-        $user->assignRole('empresa');
-        $empresa->user_id = $user->id;
-        $empresa->save();
+            $user = User::create([  'name' => $request->nombre,
+                            'email' => $request->username.'@gmail.com',
+                            'username' => $request->username,
+                            'password' => Hash::make($request->password)]);
+            $user->assignRole('empresa');
+            $empresa->user_id = $user->id;
+            $empresa->save();
+        }
+        
 
         return back()->with('exito','La Empresa ha sido agregado exitosamente');
     }

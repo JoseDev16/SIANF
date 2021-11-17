@@ -16,7 +16,7 @@
                     @csrf
                     <div class="form-group required">
                         <label for="" class="control-label">Nombre sector: </label>
-                        <input maxlength="20" type="text" name="nombre"
+                        <input maxlength="100" type="text" name="nombre"
                             class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}"
                             placeholder="Ingrese nombre del sector" value="{{ old('nombre') }}" required
                             autofocus>
