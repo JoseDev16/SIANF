@@ -55,9 +55,9 @@ Analisis horizontal
             <tr>
               <th scope="col" class="text-center">#</th>
               <th scope="col" class="text-center">Cuenta</th>
-              <th scope="col" class="text-center">Monto año {{$año-1}}</th>
-              <th scope="col" class="text-center">Monto año {{$año}}</th>
-              <th scope="col" class="text-center">Variacion absoluta</th>
+              <th scope="col" class="text-center">Monto año {{$año-1}} ($)</th>
+              <th scope="col" class="text-center">Monto año {{$año}} ($)</th>
+              <th scope="col" class="text-center">Variacion absoluta ($)</th>
               <th scope="col" class="text-center">%</th>
             </tr>
 
@@ -144,9 +144,9 @@ Analisis horizontal
         <tr>
           <th scope="col" class="text-center">#</th>
           <th scope="col" class="text-center">Cuenta</th>
-          <th scope="col" class="text-center">Monto año {{ $año-1}}</th>                    
-          <th scope="col" class="text-center">Monto año {{ $año }}</th>
-          <th scope="col" class="text-center">Variacion absoluta</th>
+          <th scope="col" class="text-center">Monto año {{ $año-1}} ($)</th>                    
+          <th scope="col" class="text-center">Monto año {{ $año }} ($)</th>
+          <th scope="col" class="text-center">Variacion absoluta ($)</th>
           <th scope="col" class="text-center">%</th>
         </tr>
         @for($i=0; $i<count($estadoresultados); $i++)
