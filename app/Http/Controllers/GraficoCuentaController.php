@@ -52,7 +52,7 @@ class GraficoCuentaController extends Controller
             ->where('cuentas.id', '=', $id_cuenta)
             ->whereBetween('periodos.year', [$año1, $año2])->get();
 
-        $cuentas= Cuenta::orderBy('id','desc')->get();
+        $cuentas= Cuenta::orderBy('id','desc')->where('empresa_id', '=', $empresa->id)->get();
 
         //return $cuentaPeriodo;
         return \view('GraficoCuenta.index',compact('periodos', 'cuentaPeriodo', 'año1','año2','cuentas'));
