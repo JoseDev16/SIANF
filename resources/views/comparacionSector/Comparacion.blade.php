@@ -1,9 +1,9 @@
 @extends('base')
-@section('title',"Comparacion Sector {$periodo["year"]}")
+@section('title',"Comparacion Sector {$periodo2["year"]}")
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Comparativo por sector: {{$periodo["year"]}}</li>
+        <li class="breadcrumb-item active" aria-current="page">Comparativo por sector: {{$periodo2["year"]}}</li>
     </ol>
 </nav>    
 
