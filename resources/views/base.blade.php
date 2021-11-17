@@ -161,7 +161,7 @@
             </li>
             @endcan
 
-           
+           @can('cuenta.index')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages50"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -176,6 +176,8 @@
                     </div>
                 </div>
             </li>
+           @endcan
+            
             
 
             <!--Menu de empresas-->
