@@ -54,7 +54,7 @@ class GraficoCuentaController extends Controller
 
         $cuentas= Cuenta::orderBy('id','desc')->get();
 
-       //return $id_cuenta;
+        //return $cuentaPeriodo;
         return \view('GraficoCuenta.index',compact('periodos', 'cuentaPeriodo', 'año1','año2','cuentas'));
     }
 }

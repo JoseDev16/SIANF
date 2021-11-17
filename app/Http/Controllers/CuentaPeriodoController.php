@@ -89,103 +89,106 @@ class CuentaPeriodoController extends Controller
             $estadoResultados->periodo_id = $request->periodo_id;
             $balanceGeneral->periodo_id = $request->periodo_id;
 
+            $max_cuenta = CuentaPeriodo::join('periodos', 'periodos.id', '=', 'cuenta_periodos.periodo_id')
+            ->where('empresa_id', '!=', $empresa->id)->max('cuenta_id');
+
             foreach($cuentasPeriodo as $cuentaPeriodo){
                 $cuenta = CuentaPeriodo::find($cuentaPeriodo->id);
                 
                 switch($cuenta->cuenta_id){
-                    case 1: 
+                    case ($max_cuenta + 1): 
                         $balanceGeneral->activos = $cuentaPeriodo->total;
                         break;
                     
-                    case 2: 
+                    case ($max_cuenta + 2): 
                         $balanceGeneral->activo_corriente = $cuentaPeriodo->total;
                         break;
                     
-                    case 3: 
+                    case ($max_cuenta + 3): 
                         $balanceGeneral->efectivo = $cuentaPeriodo->total;
                         break;
 
-                    case 4: 
+                    case ($max_cuenta + 4): 
                         $balanceGeneral->cuentas_por_cobrar = $cuentaPeriodo->total;
                     break;
 
-                    case 5: 
+                    case ($max_cuenta + 5): 
                         $balanceGeneral->inventario = $cuentaPeriodo->total;
                     break;
 
-                    case 6: 
+                    case ($max_cuenta + 6): 
                         $balanceGeneral->activo_no_corriente = $cuentaPeriodo->total;
                     break;
 
-                    case 7: 
+                    case ($max_cuenta + 7): 
                         $balanceGeneral->activo_fijo_neto = $cuentaPeriodo->total;
                     break;
 
-                    case 8: 
+                    case ($max_cuenta + 8): 
                         $balanceGeneral->pasivos = $cuentaPeriodo->total;
                     break;
 
-                    case 9: 
+                    case ($max_cuenta + 9): 
                         $balanceGeneral->pasivo_corriente = $cuentaPeriodo->total;
                     break;
 
-                    case 10: 
+                    case ($max_cuenta + 10): 
                         $balanceGeneral->cuentas_por_pagar = $cuentaPeriodo->total;
                     break;
 
-                    case 11: 
+                    case ($max_cuenta + 11): 
                         $balanceGeneral->pasivo_no_corriente = $cuentaPeriodo->total;
                     break;
 
-                    case 12: 
+                    case ($max_cuenta + 12): 
                         $balanceGeneral->patrimonio = $cuentaPeriodo->total;
                     break;
 
-                    case 13: 
+                    case ($max_cuenta + 13): 
                         $balanceGeneral->capital_social = $cuentaPeriodo->total;
                     break;
 
-                    case 14: 
+                    case ($max_cuenta + 14): 
                         $estadoResultados->ventas_netas = $cuentaPeriodo->total;
                     break;
 
-                    case 15: 
+                    case ($max_cuenta + 15): 
                         $estadoResultados->costo_ventas = $cuentaPeriodo->total;
                     break;
 
-                    case 16: 
+                    case ($max_cuenta + 16): 
                         $estadoResultados->utilidad_bruta = $cuentaPeriodo->total;
                     break;
 
-                    case 17: 
+                    case ($max_cuenta + 17): 
                         $estadoResultados->gastos_ventas = $cuentaPeriodo->total;
                     break;
 
-                    case 18: 
+                    case ($max_cuenta + 18): 
                         $estadoResultados->gastos_administracion = $cuentaPeriodo->total;
                     break;
 
-                    case 19: 
+                    case ($max_cuenta + 19): 
                         $estadoResultados->utilidad_operativa = $cuentaPeriodo->total;
                     break;
 
-                    case 20: 
+                    case ($max_cuenta + 20): 
                         $estadoResultados->gastos_financieros = $cuentaPeriodo->total;
                     break;
 
-                    case 21: 
+                    case ($max_cuenta + 21): 
                         $estadoResultados->utilidad_antes_de_i = $cuentaPeriodo->total;
                     break;
 
-                    case 22: 
+                    case ($max_cuenta + 22): 
                         $estadoResultados->intereses = $cuentaPeriodo->total;
                     break;
 
-                    case 23: 
+                    case ($max_cuenta + 23): 
                         $estadoResultados->impuestos = $cuentaPeriodo->total;
                     break;
 
-                    case 24: 
+                    case ($max_cuenta + 24): 
                         $estadoResultados->utilidad_neta = $cuentaPeriodo->total;
                     break;
                 }

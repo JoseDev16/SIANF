@@ -8,9 +8,9 @@ Usuarios
         <li class="breadcrumb-item active" aria-current="page">Listado de usuarios</li>
     </ol>
 </nav>
-<div class="col-md-12">
+<!-- <div class="col-md-12">
     <a href="{{route('register')}}" class="btn btn-primary">Agregar usuario</a>
-</div>
+</div>-->
 <div class="col-md-12 pt-4">
     @if(session('eliminar'))
     <div class="alert alert-success mt-3">
