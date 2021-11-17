@@ -57,8 +57,8 @@ Analisis horizontal
               <th scope="col" class="text-center">Codigo</th>
               <th scope="col" class="text-center">Cuenta</th>
               {{-- <th scope="col" class="text-center">Monto año {{$año-1}}</th> --}}
-              <th scope="col" class="text-center">Monto año {{$año}}</th>
-              <th scope="col" class="text-center">Analisis vertical año {{$año}}</th>
+              <th scope="col" class="text-center">Monto año {{$año}} ($)</th>
+              <th scope="col" class="text-center">Analisis vertical año {{$año}} (%)</th>
               {{-- <th scope="col" class="text-center">%</th> --}}
             </tr>
             @for ($i = 0; $i < count($balancegeneral); $i++)
@@ -68,7 +68,7 @@ Analisis horizontal
 
                 {{-- Para el codigo --}}
                 <td class="text-center"> 
-                    @if($balancegeneral[$i]->codigo == "Activo")                      
+                    @if($balancegeneral[$i]->codigo == strval(round($i,1)))                      
                         <strong> {{ $balancegeneral[$i]->codigo}} </strong>
                     @else
                         {{ $balancegeneral[$i]->codigo }}
@@ -77,7 +77,7 @@ Analisis horizontal
 
                 {{-- Para el nombre --}}
                 <td class="text-center"> 
-                    @if($balancegeneral[$i]->nombre == "Activo")                      
+                    @if($balancegeneral[$i]->codigo == strval(round($i,1)))                      
                         <strong> {{ $balancegeneral[$i]->nombre}} </strong>
                     @else
                         {{ $balancegeneral[$i]->nombre }}
@@ -86,7 +86,7 @@ Analisis horizontal
 
                 {{-- Para el año seleccionado --}}
                 <td class="text-center"> 
-                    @if($balancegeneral[$i]->nombre == "Activo")                      
+                    @if($balancegeneral[$i]->codigo == strval(round($i,1)))                      
                         <strong> {{ $balancegeneral[$i]->total}} </strong>
                     @else
                         {{ $balancegeneral[$i]->total }}
@@ -96,17 +96,44 @@ Analisis horizontal
                 {{-- Para el analisis V --}}
                 <td class="text-center">
                     {{-- {{ strval($i+1)}} --}}
-                    @for ($j = 1; $j < count($balancegeneral); $j++)
-                        {{-- {{ strval($j)}}  --}}
+
+                    @if ($i<7)
+                        @if ($balancegeneral[$i]->codigo == strval($i+1))
+                            {{ round((($balancegeneral[$i]->total/$balancegeneral[$i]->total)*100),2) }} 
+                        @else
+                        
+                        {{ round((($balancegeneral[$i]->total/$balancegeneral[0]->total)*100),2) }}
+                        @endif
+                        
+                    @endif
+
+                    @if ($i>6 && $i<11)
+                        @if($balancegeneral[$i]->codigo == '2')
+                            {{ round((($balancegeneral[$i]->total/$balancegeneral[$i]->total)*100),2) }}    
+                        @else
+                            {{ round((($balancegeneral[$i]->total/$balancegeneral[7]->total)*100),2) }}    
+                        @endif
+                    @endif
+
+                    @if ($i>10)
+                    @if($balancegeneral[$i]->codigo == '3')
+                        {{ round((($balancegeneral[$i]->total/$balancegeneral[$i]->total)*100),2) }}    
+                    @else
+                        {{ round((($balancegeneral[$i]->total/$balancegeneral[11]->total)*100),2) }}    
+                    @endif
+                @endif
+                    {{-- @for ($j = 1; $j < count($balancegeneral); $j++)
+                        {{-- {{ strval($j)}} 
                         @if ($balancegeneral[$i]->codigo == strval($j))                
-                             @if ($balancegeneral[$i]!=$balancegeneral[$j]) 
-                            <strong>{{ round((($balancegeneral[$i]->total/$balancegeneral[$i]->total)*100),2) }}</strong>
+                             @if ($balancegeneral[$i]==$balancegeneral[$j]) 
+                                <strong>{{ round((($balancegeneral[$i]->total/$balancegeneral[$i]->total)*100),2) }}</strong>
                             
                             @endif                        
-                        
                             
+                        @else
+                            {{ round((($balancegeneral[$i]->total/$balancegeneral[0]->total)*100),2) }}
                         @endif
-                    @endfor 
+                    @endfor  --}}
 
                     {{-- @for ($j = 1.1; $j < 2; $j++)
                         @if ($balancegeneral[$j]->codigo == strval($j))                    
@@ -178,10 +205,10 @@ Analisis horizontal
         <tr>
           <th scope="col" class="text-center">#</th>
           <th scope="col" class="text-center">Cuenta</th>
-          <th scope="col" class="text-center">Monto del año {{$año}}</th>
+          <th scope="col" class="text-center">Monto del año {{$año}} ($)</th>
           {{-- <th scope="col" class="text-center">Monto año {{ $año-1}}</th>                    
           <th scope="col" class="text-center">Monto año {{ $año }}</th> --}}
-          <th scope="col" class="text-center">Analisis vertical del año {{ $año }}</th>
+          <th scope="col" class="text-center">Analisis vertical del año {{ $año }} (%)</th>
           {{-- <th scope="col" class="text-center">%</th> --}}
         </tr>
         @for($i=0; $i<count($estadoresultados); $i++)
@@ -206,20 +233,10 @@ Analisis horizontal
               @endif
             </td>
             
-            {{-- <td class="text-center">
+            <td class="text-center">
                 
-                @for ($j = 1; $j < count($balancegeneral); $j++)
-                    
-                    @if ($balancegeneral[$i]->codigo == strval($j))                
-                         @if ($balancegeneral[$i]!=$balancegeneral[$j]) 
-                        <strong>{{ round((($balancegeneral[$i]->total/$balancegeneral[$i]->total)*100),2) }}</strong>
-                        
-                        @endif                        
-                    
-                        
-                    @endif
-                @endfor
-            </td> --}}
+                    {{round((($estadoresultados[$i]->total/$estadoresultados[0]->total)*100),2)}}               
+            </td>
 
             
           </tr>
